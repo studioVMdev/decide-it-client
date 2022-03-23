@@ -1,0 +1,8 @@
+@use "../utils" as *;
+#root {
+  & > * {
+    @include padding-site;
+    & > * {
+    }
+  }
+}

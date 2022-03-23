@@ -1,0 +1,17 @@
+@use "../../../styles/partials/utils/index" as *;
+
+
+.input {
+  &__options-wrapper{
+    @include flex;
+    gap: 1rem;
+  }
+
+  &__radio-wrapper{
+    @include flex;
+  }
+
+  &__radio-label{
+    padding-left: 1rem;
+  }
+}

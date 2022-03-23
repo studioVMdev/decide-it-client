@@ -1,0 +1,19 @@
+@use "../../../styles/partials/utils/index" as *;
+
+
+
+.input {
+  position: relative;
+	width: 100%;
+
+  
+}
+
+
+
+.input__error-wrapper{
+  position: absolute;
+  bottom: -2.4rem;
+  @include flex;
+  color: $clr-red;
+}

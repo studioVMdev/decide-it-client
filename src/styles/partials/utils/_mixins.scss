@@ -1,0 +1,65 @@
+@use "./variables" as *;
+//Media Queries Mixins
+
+@mixin media-mobile {
+  @media only screen and (max-width: $breakpoint-mobile-max) {
+    @content;
+  }
+}
+
+@mixin media-tablet {
+  @media only screen and (min-width: $breakpoint-tablet) {
+    @content;
+  }
+}
+
+@mixin media-desktop {
+  @media only screen and (min-width: $breakpoint-desktop) {
+    @content;
+  }
+}
+
+//Padding for Headlines
+
+@mixin padding-v-headline {
+  padding-top: 2.4rem;
+  padding-bottom: 1.6rem;
+
+  @include media-tablet {
+    padding-top: 4.8rem;
+    padding-bottom: 3.6rem;
+  }
+}
+
+//Padding for components
+@mixin padding-v-component {
+  padding: 1.6rem 0;
+
+  @include media-tablet {
+    padding: 3.6rem 0;
+  }
+}
+
+// Modular Flex Mixin
+// Defaults to Center Center Row
+
+@mixin flex($justify: center, $align: center, $direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin padding-site {
+  & > * {
+    // min-width: 100%;
+    margin: 0 1.6rem;
+    @include media-tablet {
+      margin: 0 3.6rem;
+    }
+    // @include media-desktop {
+    //   margin: 0 auto;
+    //   max-width: $desktop-max-width;
+    // }
+  }
+}

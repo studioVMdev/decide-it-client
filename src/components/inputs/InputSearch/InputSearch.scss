@@ -1,0 +1,52 @@
+@use "../input.scss" as *;
+
+.input {
+  
+  &__search-wrapper{
+    position: relative;
+    width: 100%;
+
+    @include media-tablet {
+      width: 100%;
+		}
+
+    @include media-tablet{
+    }
+  }
+
+  &__icon-search{
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(-50%,30%);
+  }
+
+	&__field {
+    width: 100%;
+    border-radius: 50%;
+		height: 4rem;
+		min-width: 12rem;
+		border-radius: 2rem;
+		padding: 0.8rem 1.6rem;
+    border:1px solid  $clr-secondary-lightgrey;
+
+
+    &::placeholder{
+      height: 100%;
+      color: $clr-secondary-darkgrey;
+      font-size: 1.2rem;
+      line-height: 1.8rem;
+      font-weight: 400;
+      @include media-mobile {
+        font-size: 1.1rem;
+        line-height: 1.6rem;
+      }
+    }
+
+    &:active, &:focus{
+      border:1px solid  $clr-primary-indigo;
+    }
+	}
+	&__wrapper {
+	}
+}
