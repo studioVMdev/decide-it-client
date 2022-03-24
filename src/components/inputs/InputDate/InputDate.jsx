@@ -1,7 +1,6 @@
 import React from "react";
-// import "./InputNumber.scss";
 
-const InputNumber = ({ name, label, value, min = 0, handleOnChange }) => {
+const InputDate = ({ name, label, value, handleOnChange }) => {
 	return (
 		<>
 			<label htmlFor={name} className="input__label h3">
@@ -9,17 +8,16 @@ const InputNumber = ({ name, label, value, min = 0, handleOnChange }) => {
 				{label}
 			</label>
 			<input
-				min={min}
+				// min={min}
 				onChange={handleOnChange}
 				className="input__field p-medium"
-				type="number"
+				type="date"
 				name={name}
 				label={label}
-				placeholder={label}
 				value={value}
 			/>
 		</>
 	);
 };
 
-export default InputNumber;
+export default InputDate;

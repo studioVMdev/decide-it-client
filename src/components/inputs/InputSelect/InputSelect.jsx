@@ -18,7 +18,7 @@ const InputSelect = ({
 				value={value}
 				onChange={handleOnChange}
 			>
-				<option className=" input__field p-medium" value="" disabled hidden>
+				<option className=" input__field p-medium" value="">
 					Please Choose...
 				</option>
 				{options &&
