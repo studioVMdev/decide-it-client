@@ -1,6 +1,6 @@
 import React from "react";
-// import { Bar, Line, Pie } from "react-chartjs-2";
-// import Chart from "chart.js/auto";
+
+import "./ChartApp.scss";
 
 import {
 	Chart as ChartJS,
@@ -28,9 +28,20 @@ ChartJS.register(
 	Legend
 );
 
-const ChartApp = ({ dataset = null, labels, chartLabel, chartType }) => {
-	console.log(labels);
-	console.log(dataset);
+const ChartApp = ({
+	dataset = null,
+	labels,
+	chartLabel,
+	chartType,
+	thresholdValueIndex = null,
+}) => {
+	let thresholdHighArray = null;
+	// console.log(dataset[+thresholdValueIndex]);
+	if (thresholdValueIndex) {
+		thresholdHighArray = new Array(dataset.length).fill(
+			dataset[+thresholdValueIndex]
+		);
+	}
 
 	const chartOptions = {
 		aspectRatio: 2,
@@ -50,7 +61,6 @@ const ChartApp = ({ dataset = null, labels, chartLabel, chartType }) => {
 			// 	text: "subtitle",
 			// },
 			legend: {
-				// display: true,
 				display: false,
 				position: "bottom",
 			},
@@ -58,7 +68,7 @@ const ChartApp = ({ dataset = null, labels, chartLabel, chartType }) => {
 	};
 
 	return (
-		<>
+		<div className="chart__single">
 			<Chart
 				data={{
 					labels: labels,
@@ -96,11 +106,16 @@ const ChartApp = ({ dataset = null, labels, chartLabel, chartType }) => {
 							],
 							borderWidth: 1,
 						},
+						{
+							type: "line",
+							data: thresholdHighArray,
+							borderColor: "red",
+						},
 					],
 				}}
 				options={chartOptions}
 			/>
-		</>
+		</div>
 	);
 };
 

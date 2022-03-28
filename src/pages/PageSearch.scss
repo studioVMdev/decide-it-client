@@ -1,0 +1,9 @@
+@use "../styles/partials/utils/index" as *;
+
+.chart{
+  &__container{
+    @include flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+}

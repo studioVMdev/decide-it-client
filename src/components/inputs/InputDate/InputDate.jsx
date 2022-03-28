@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputDate = ({ name, label, value, handleOnChange }) => {
+const InputDate = ({ name, label, value, handleOnChange, min }) => {
 	return (
 		<>
 			<label htmlFor={name} className="input__label h3">
@@ -8,7 +8,7 @@ const InputDate = ({ name, label, value, handleOnChange }) => {
 				{label}
 			</label>
 			<input
-				// min={min}
+				min={min}
 				onChange={handleOnChange}
 				className="input__field p-medium"
 				type="date"

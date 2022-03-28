@@ -4,6 +4,10 @@
   "description": "application that helps architects and construction industry professionals make decisions regarding planning application timelines",
   "main": "index.js",
   "dependencies": {
+    "@mantine/core": "^4.0.9",
+    "@mantine/dates": "^4.1.0",
+    "@mantine/hooks": "^4.0.9",
+    "@mantine/notifications": "^4.0.9",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",

@@ -5,7 +5,7 @@ const GET_QUERY_SEARCH = (
 	appType,
 	appState,
 	appSize,
-	recentAppCount,
+	search_terms = null,
 	resultsSize,
 	start_date,
 	end_date
@@ -27,16 +27,14 @@ const GET_QUERY_SEARCH = (
 			start_date +
 			"&end_date=" +
 			end_date +
-			// "&recent=" +
-			// recentAppCount +
-			"&sort=" +
-			"decided_date" +
 			//* Search
-			"&search=demolition" +
+			(search_terms ? `&search=${search_terms}` : "") +
+			//* Select fields
 			"&select=app_size," +
 			"scraper_name," +
 			"app_state," +
 			"app_type," +
+			"description," +
 			"other_fields->application_type," +
 			"other_fields->description," +
 			//* Application details -------------
