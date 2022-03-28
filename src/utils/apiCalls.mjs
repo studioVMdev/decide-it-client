@@ -23,17 +23,22 @@ const GET_QUERY_SEARCH = (
 			appSize +
 			"&pg_sz=" +
 			resultsSize +
-			"&recent=" +
-			recentAppCount +
 			"&start_date=" +
 			start_date +
 			"&end_date=" +
 			end_date +
+			// "&recent=" +
+			// recentAppCount +
+			"&sort=" +
+			"decided_date" +
+			//* Search
+			"&search=demolition" +
 			"&select=app_size," +
 			"scraper_name," +
 			"app_state," +
 			"app_type," +
 			"other_fields->application_type," +
+			"other_fields->description," +
 			//* Application details -------------
 			"other_fields->status," +
 			"other_fields->decision," +
@@ -43,8 +48,8 @@ const GET_QUERY_SEARCH = (
 			"other_fields->date_validated," +
 			"other_fields->date_received," +
 			"other_fields->target_decision_date," +
-			"decided_date," +
-			"other_fields->decision_date"
+			"other_fields->decision_date," +
+			"decided_date"
 	);
 };
 

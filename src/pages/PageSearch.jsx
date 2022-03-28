@@ -2,40 +2,48 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import dayjs from "dayjs";
 import FormSearch from "../components/forms/FormSearch";
-import Chart from "chart.js/auto";
+// import Chart from "chart.js/auto";
 import Options from "../utils/queryOptions.mjs";
 
-const PageSearch = () => {
-	const [isDataLoading, setIsDataLoading] = useState(true);
+import ChartApp from "../components/charts/ChartApp";
+
+const PageSearch = (props) => {
+	// console.log(props)
+	const [isDataLoading, setIsDataLoading] = useState("");
 	const [rawData, setRawData] = useState("");
+	const [datasetAppType, setDatasetAppType] = useState("");
 	const [datasetAppState, setDatasetAppState] = useState("");
-	const [requestSize, setRequestSize] = useState("");
+	const [datasetAppSize, setDatasetAppSize] = useState("");
 	const [responseSize, setResponseSize] = useState("");
+
 	const [registrationDuration, setRegistrationDuration] = useState("");
+	const [decisionTarget, setDecisionTarget] = useState("");
 	const [decisionDuration, setDecisionDuration] = useState("");
 	const [totalDuration, setTotalDuration] = useState("");
-	const [decisionTarget, setDecisionTarget] = useState("");
 
 	useEffect(() => {
-		console.log("globalAppStateChart exists", globalAppStateChart);
-
-		console.log("🥨 isDataLoading", isDataLoading);
-
-		!isDataLoading && displayData();
-
-		// console.log("isDataloading");
-	}, [isDataLoading]);
-
-	useEffect(() => {
-		console.log("rawData set");
-
+		console.log("rawData effect");
 		rawData && analyseData();
 	}, [rawData]);
 
 	const analyseData = async () => {
 		setResponseSize(rawData.length);
 		console.log("setting raw data");
-		console.log("💙 analysing data");
+		console.log("💙 analyzing data");
+
+		try {
+			const labels = Options.appType();
+			const tempDatasetAppType = [];
+			labels.forEach((label) => {
+				let labelValueCount = rawData.filter((record) => {
+					return record.app_type === label;
+				});
+				tempDatasetAppType.push(labelValueCount.length);
+			});
+			setDatasetAppType(tempDatasetAppType);
+		} catch (e) {
+			console.log(e);
+		}
 
 		try {
 			const labels = Options.appState();
@@ -46,139 +54,75 @@ const PageSearch = () => {
 				});
 				tempDatasetAppState.push(labelValueCount.length);
 			});
-
-			console.log(requestSize, rawData.length);
 			setDatasetAppState(tempDatasetAppState);
-			setRequestSize(requestSize);
-			getDecisionDatesStats();
-
-			console.log("❌ is loading to false ");
-			setIsDataLoading(false);
 		} catch (e) {
 			console.log(e);
 		}
+
+		try {
+			const labels = Options.appSize();
+			const tempDatasetAppSize = [];
+
+			labels.forEach((label) => {
+				console.log(label);
+				let labelValueCount = rawData.filter((record) => {
+					return record.app_size === label;
+				});
+				tempDatasetAppSize.push(labelValueCount.length);
+			});
+			setDatasetAppSize(tempDatasetAppSize);
+			console.log(labels, tempDatasetAppSize);
+		} catch (e) {
+			console.log(e);
+		}
+
+		getDecisionDatesStats();
+
+		console.log("❌ is loading to false ");
+		setIsDataLoading(false);
 	};
 
 	const getDecisionDatesStats = () => {
-		let decisionTarget, decisionDuration, totalDuration, registrationDuration;
+		let registrationDuration = null;
+		let decisionTarget = null;
+		let decisionDuration = null;
+		let totalDuration = null;
 
 		rawData.forEach((app) => {
 			let date_received = dayjs(app.date_received);
 			let date_validated = dayjs(app.date_validated);
 			let target_decision_date = dayjs(app.target_decision_date);
 			let decided_date = dayjs(app.decided_date);
-			registrationDuration =
-				date_validated.diff(date_received, "day") / rawData.length;
-			// console.log("registration duration", registrationDuration);
-			decisionTarget =
-				target_decision_date.diff(date_validated, "day") / rawData.length;
-			// console.log("decision target", decisionTarget);
-			decisionDuration =
-				decided_date.diff(date_validated, "day") / rawData.length;
-			// console.log("decision duration", decisionDuration);
-			totalDuration =
-				decided_date.diff(date_received, "day") / rawData.length;
-			// console.log("total app duration", totalDuration);
+
+			registrationDuration +=
+				date_validated.diff(date_received, "day") / rawData.length || 0;
+
+			// console.log("reg dur", registrationDuration)
+
+			decisionTarget +=
+				target_decision_date.diff(date_validated, "day") / rawData.length ||
+				0;
+			// console.log("target dur", decisionTarget)
+
+			decisionDuration +=
+				decided_date.diff(date_validated, "day") / rawData.length || 0;
+			// console.log("decision dur", decisionDuration)
+
+			totalDuration +=
+				decided_date.diff(date_received, "day") / rawData.length || 0;
+			// console.log("total dur", totalDuration)
 		});
+
+		console.log("reg dur", registrationDuration);
+		console.log("target dur", decisionTarget);
+		console.log("decision dur", decisionDuration);
+		console.log("total dur", totalDuration);
 
 		setDecisionDuration(decisionDuration);
 		setDecisionTarget(decisionTarget);
 		setTotalDuration(totalDuration);
 		setRegistrationDuration(registrationDuration);
 	};
-
-	const chartOptions = {
-		type: "bar",
-		data: {
-			labels: Options.appState(),
-			datasets: [
-				{
-					label: `Retrieved ${responseSize} out of ${requestSize} requested applications`,
-					data: datasetAppState,
-					backgroundColor: [
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 206, 86, 0.2)",
-						"rgba(54, 162, 235, 0.2)",
-						"rgba(255, 206, 86, 0.2)",
-						"rgba(75, 192, 192, 0.2)",
-						"rgba(153, 102, 255, 0.2)",
-						"rgba(255, 159, 64, 0.2)",
-						"rgba(54, 162, 235, 0.2)",
-						"rgba(75, 192, 192, 0.2)",
-						"rgba(153, 102, 255, 0.2)",
-						"rgba(153, 102, 255, 0.2)",
-					],
-					borderColor: [
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 206, 86, 1)",
-						"rgba(54, 162, 235, 1)",
-						"rgba(255, 206, 86, 1)",
-						"rgba(75, 192, 192, 1)",
-						"rgba(153, 102, 255, 1)",
-						"rgba(255, 159, 64, 1)",
-						"rgba(54, 162, 235, 1)",
-						"rgba(75, 192, 192, 1)",
-						"rgba(153, 102, 255, 1)",
-						"rgba(153, 102, 255, 1)",
-					],
-					borderWidth: 1,
-				},
-			],
-		},
-		options: {
-			aspectRatio: 2,
-			scales: {
-				y: {
-					beginAtZero: true,
-				},
-			},
-			plugins: {
-				title: {
-					display: true,
-					text: "Custom Chart Title",
-					position: "bottom",
-					padding: {
-						// top: 10,
-						// bottom: 30,
-					},
-				},
-				subtitle: {
-					position: "bottom",
-					display: true,
-					text: "subtitle",
-				},
-			},
-		},
-	};
-
-	let globalAppStateChart = null;
-
-	const displayData = () => {
-		console.log("💖 displaying data");
-
-		//! CANVAS------------------
-		const ctx = document.getElementById("chart-app-state").getContext("2d");
-
-		console.log(myChart);
-
-		if (globalAppStateChart) {
-			globalAppStateChart.destroy();
-			console.log("❌💔❌💔chart destroyed");
-		}
-
-		console.log(ctx);
-		console.log("creating chart");
-		const myChart = new Chart(ctx, chartOptions);
-		//! CANVAS------------------
-		globalAppStateChart = myChart;
-
-		console.log(globalAppStateChart);
-		console.log("✅ chart created and mounted");
-	};
-
-  const initialiseCharts = () => {
-    
-  }
 
 	return (
 		<>
@@ -188,9 +132,42 @@ const PageSearch = () => {
 				setRawData={setRawData}
 			/>
 			<div>
-				<canvas id="chart-app-state" width="400" height="400"></canvas>
-				<canvas id="chart-app-type" width="400" height="400"></canvas>
-				<canvas id="chart-app-size" width="400" height="400"></canvas>
+				<div className="total"></div>
+				{
+					<>
+						<ChartApp
+							chartType="bar"
+							dataset={datasetAppState}
+							chartLabel="Application State"
+							labels={Options.appState()}
+						/>
+
+						<ChartApp
+							chartType="line"
+							dataset={datasetAppSize}
+							chartLabel="Application Size"
+							labels={Options.appSize()}
+						/>
+
+						<ChartApp
+							chartType="bar"
+							dataset={datasetAppType}
+							chartLabel="Application Type"
+							labels={Options.appType()}
+						/>
+						<ChartApp
+							chartType="line"
+							chartLabel="Application Duration"
+							dataset={[
+								registrationDuration,
+								decisionTarget,
+								decisionDuration,
+								totalDuration,
+							]}
+							labels={Options.duration()}
+						/>
+					</>
+				}
 			</div>
 		</>
 	);

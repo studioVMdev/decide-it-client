@@ -16,52 +16,55 @@ const app_type_options = Options.appType();
 const app_state_options = Options.appState();
 
 const FormSearch = ({ analyseData, setRawData, setIsDataLoading }) => {
-	const [authority, setAuthority] = useState("Merton");
-	const handleAuthChange = (e) => {
+
+  const [responseSize, setResponseSize] = useState("");
+
+  const [authority, setAuthority] = useState("Merton");
+  const handleAuthChange = (e) => {
 		setAuthority(e.target.value);
-	};
+  };
 
-	const [appSize, setAppSize] = useState("Small");
-	const handleAppSizeChange = (e) => {
+  const [appSize, setAppSize] = useState("Small");
+  const handleAppSizeChange = (e) => {
 		setAppSize(e.target.value);
-	};
+  };
 
-	const [appType, setAppType] = useState("Full");
-	const handleAppTypeChange = (e) => {
+  const [appType, setAppType] = useState("Full");
+  const handleAppTypeChange = (e) => {
 		setAppType(e.target.value);
-	};
+  };
 
-	const [appState, setAppState] = useState("");
-	const handleAppStateChange = (e) => {
+  const [appState, setAppState] = useState("");
+  const handleAppStateChange = (e) => {
 		setAppState(e.target.value);
-	};
+  };
 
-	const [recentAppCount, setRecentAppCount] = useState(0);
-	const handleRecentChange = (e) => {
+  const [recentAppCount, setRecentAppCount] = useState(0);
+  const handleRecentChange = (e) => {
 		setRecentAppCount(e.target.value);
-	};
+  };
 
-	const [resultsSize, setResultsSize] = useState(10);
-	const handleResultsChange = (e) => {
+  const [resultsSize, setResultsSize] = useState(10);
+  const handleResultsChange = (e) => {
 		setResultsSize(e.target.value);
-	};
+  };
 
-	const [startDate, setStartDate] = useState("");
-	const handleStartDateChange = (e) => {
+  const [startDate, setStartDate] = useState("");
+  const handleStartDateChange = (e) => {
 		console.log(e.target.value);
 		const formattedDate = dayjs(e.target.value).format("YYYY-MM-DD");
 		setStartDate(formattedDate);
 		console.log(startDate);
-	};
+  };
 
-	const [endDate, setEndDate] = useState("");
-	const handleEndDateChange = (e) => {
+  const [endDate, setEndDate] = useState("");
+  const handleEndDateChange = (e) => {
 		const formattedDate = dayjs(e.target.value).format("YYYY-MM-DD");
 		setEndDate(formattedDate);
 		console.log(endDate);
-	};
+  };
 
-	const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
 		console.log("✔ is loading to true ");
 		setIsDataLoading(true);
 
@@ -81,11 +84,12 @@ const FormSearch = ({ analyseData, setRawData, setIsDataLoading }) => {
 		console.log("response is back...");
 		// analyseData(resultsSize, response.data.records);
 		console.log("setting raw data");
-		setRawData(response.data.records);
 		console.log(response.data.records);
-	};
+		setRawData(response.data.records);
+		setResponseSize(response.data.records.length);
+  };
 
-	return (
+  return (
 		<>
 			<div>FormSearch</div>
 			<form
@@ -152,8 +156,12 @@ const FormSearch = ({ analyseData, setRawData, setIsDataLoading }) => {
 				/>
 				<button type="submit">Search</button>
 			</form>
+			<h2 className="total-results">
+				{responseSize &&
+					`Retrieved ${responseSize} out of ${resultsSize} requested applications.`}
+			</h2>
 		</>
-	);
+  );
 };
 
 export default FormSearch;

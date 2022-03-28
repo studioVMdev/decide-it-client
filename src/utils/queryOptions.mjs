@@ -24,7 +24,9 @@ export default class Options {
 			"Other",
 		];
 	}
-
+	static duration() {
+		return ["Registration", "Target", "Decision", "Total"];
+	}
 	static appType() {
 		return [
 			"Full",
