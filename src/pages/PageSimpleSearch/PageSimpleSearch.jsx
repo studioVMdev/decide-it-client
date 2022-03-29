@@ -1,6 +1,12 @@
 import React from "react";
 import "./PageSimpleSearch.scss";
 import Options from "../../utils/queryOptions.mjs";
+import getDecisionDatesStats from "../../utils/decisionDatesStats.mjs";
+import dayjs from "dayjs";
+import { useNotifications } from "@mantine/notifications";
+
+import ChartApp from "../../components/charts/ChartApp";
+import CardList from "../../components/CardList/CardList";
 
 import { GET_SIMPLE_SEARCH } from "../../utils/apiCalls.mjs";
 
@@ -9,6 +15,7 @@ import {
 	Stepper,
 	Button,
 	Group,
+	InputWrapper,
 	TextInput,
 	NumberInput,
 	Select,
@@ -17,6 +24,8 @@ import {
 } from "@mantine/core";
 
 const PageSimpleSearch = () => {
+	const notifications = useNotifications();
+
 	const [active, setActive] = useState(0);
 	const nextStep = () =>
 		setActive((current) => (current < 3 ? current + 1 : current));
@@ -26,53 +35,116 @@ const PageSimpleSearch = () => {
 	const [isDataLoading, setIsDataLoading] = useState(true);
 	const [rawData, setRawData] = useState("");
 	const [responseSize, setResponseSize] = useState("");
+	const [durationData, setDurationData] = useState("");
 
 	const [postCode, setPostCode] = useState("");
+	const [isValidPostcode, setIsValidPostcode] = useState(true);
 	const [radius, setRadius] = useState(1);
 	const [appSize, setAppSize] = useState("");
 	const [appType, setAppType] = useState("");
 	const [resultsSize, setResultsSize] = useState(500);
-	const [startDate, setStartDate] = useState("2020-05-09");
-	const [endDate, setEndDate] = useState("2020-09-09");
+	//! This start date is always 12 months in the past
+	const [startDate, setStartDate] = useState(
+		dayjs(dayjs().subtract(12, "month")).format("YYYY-MM-DD")
+	);
+	//! This end date is always 6 months in the past
+	const [endDate, setEndDate] = useState(
+		dayjs(dayjs().subtract(6, "month")).format("YYYY-MM-DD")
+	);
 
 	useEffect(() => {
 		console.log("analysing data");
+		rawData && analyseData();
 	}, [rawData]);
 
+	const postcodeIsValid = (p) => {
+		let postcodeRegEx = /[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}/i;
+		return postcodeRegEx.test(p);
+	};
+
 	const handleSubmit = async () => {
-		setRawData("");
-		setIsDataLoading(true);
+		notifications.hideNotification("networkErrorNotification");
 
-		console.log("submiting");
-		const response = await GET_SIMPLE_SEARCH(
-			postCode,
-			radius,
-			appSize,
-			appType,
-			// appState,
-			resultsSize,
-			startDate,
-			endDate
-		);
+		notifications.showNotification({
+			id: "fetchingNotification",
+			title: "Scraping planning applications",
+			message:
+				"Please bare with us, we are fetching large amounts of planning applications, this can take up to 30 seconds.",
+			autoClose: 30000,
+			loading: true,
+		});
 
-		setRawData(response.data.records);
-		setResponseSize(response.data.records.length);
+		try {
+			setRawData("");
+			setIsDataLoading(true);
+			console.log("submiting");
 
-		console.log(response.data);
+			const response = await GET_SIMPLE_SEARCH(
+				postCode,
+				radius,
+				appSize,
+				appType,
+				// appState,
+				resultsSize,
+				startDate,
+				endDate
+			);
+			console.log(response.data);
+			setRawData(response.data.records);
+
+			notifications.hideNotification("fetchingNotification");
+		} catch (error) {
+			console.log(JSON.stringify(error));
+			console.log(error.response);
+			if (error.message === "Network Error") {
+				notifications.hideNotification("fetchingNotification");
+				notifications.showNotification({
+					id: "networkErrorNotification",
+					title: `${error}`,
+					message: `Please try again...`,
+					color: "red",
+					className: "my-notification-class",
+					style: { backgroundColor: "red" },
+					autoClose: 5000,
+				});
+			}
+		}
+	};
+
+	const analyseData = async () => {
+		setResponseSize(rawData.length);
+		setDurationData(getDecisionDatesStats(rawData));
+		setIsDataLoading(false);
 	};
 
 	const firstQuestionJSX = (
 		<>
 			<Group position="center" grow>
-				<TextInput
-					clearable="true"
-					value={postCode}
-					onChange={(event) =>
-						setPostCode(event.currentTarget.value.split(" ").join("+"))
+				<InputWrapper
+					id="input-authority"
+					required={true}
+					// label="Local Authority Required"
+					// description="Please select a local authority"
+					error={
+						!isValidPostcode ? "Please enter a valid UK postcode" : ""
 					}
-					label="Postcode"
-					placeholder="Enter Postcode"
-				/>
+				>
+					<TextInput
+						clearable="true"
+						value={postCode.split("+").join(" ")}
+						onChange={(event) =>
+							setPostCode(
+								event.currentTarget.value
+									.split(" ")
+									.join("+")
+									.toUpperCase()
+							)
+						}
+						label="Postcode"
+						placeholder="Enter Postcode"
+					/>
+				</InputWrapper>
+
 				<NumberInput
 					clearable="true"
 					value={radius}
@@ -173,6 +245,16 @@ const PageSimpleSearch = () => {
 					<Button onClick={handleSubmit}>Submit</Button>
 				)}
 			</Group>
+
+			<ChartApp
+				chartType="bar"
+				thresholdValueIndex="1"
+				chartLabel="Application Duration"
+				dataset={durationData}
+				labels={Options.duration()}
+			/>
+
+			{!isDataLoading && <CardList rawData={rawData} />}
 		</>
 	);
 };

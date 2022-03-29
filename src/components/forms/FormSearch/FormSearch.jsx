@@ -28,31 +28,35 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 	const [appSize, setAppSize] = useState("Small");
 	const [appType, setAppType] = useState("Full");
 	const [appState, setAppState] = useState("");
-	const [resultsSize, setResultsSize] = useState(10);
-	const [startDate, setStartDate] = useState("2021-03-12");
+  const [resultsSize, setResultsSize] = useState(10);
+  const [searchTerms, setSearchTerms] = useState("");
 
-	const handleStartDateChange = (val) => {
+  //! This start date is always 12 months in the past
+  const [startDate, setStartDate] = useState(
+		dayjs(dayjs().subtract(12, "month")).format("YYYY-MM-DD")
+  );
+  //! This end date is always 6 months in the past
+  const [endDate, setEndDate] = useState(
+		dayjs(dayjs().subtract(6, "month")).format("YYYY-MM-DD")
+  );
+
+  const handleStartDateChange = (val) => {
 		const formattedDate = dayjs(val).format("YYYY-MM-DD");
 		setStartDate(formattedDate);
 		console.log(startDate);
-	};
+  };
 
-	const [endDate, setEndDate] = useState("2021-08-12");
-
-	const handleEndDateChange = (val) => {
+  const handleEndDateChange = (val) => {
 		const formattedDate = dayjs(val).format("YYYY-MM-DD");
 		setEndDate(formattedDate);
 		console.log(endDate);
-	};
+  };
 
-	const [searchTerms, setSearchTerms] = useState("");
-
-	const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
 		notifications.hideNotification("networkErrorNotification");
 
 		console.log("✔ is loading to true ");
 		setRawData("");
-
 		setIsDataLoading(true);
 
 		notifications.showNotification({
@@ -65,7 +69,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 		});
 
 		console.log("scraping data....");
-		e.preventDefault();
+
 		try {
 			const response = await GET_QUERY_SEARCH(
 				authority,
@@ -81,14 +85,15 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 			console.log(response.data.records);
 			setRawData(response.data.records);
 			setResponseSize(response.data.records.length);
-			notifications.hideNotification("fetchingNotification");
-		} catch (err) {
-			if (err.message === "Network Error") {
+      notifications.hideNotification("fetchingNotification");
+      
+      response.status===400 && console.log(response.data.error);
+		} catch (error) {
+			if (error.message === "Network Error") {
 				notifications.hideNotification("fetchingNotification");
-
 				notifications.showNotification({
 					id: "networkErrorNotification",
-					title: `${err}`,
+					title: `${error}`,
 					message: `Please try again...`,
 					color: "red",
 					className: "my-notification-class",
@@ -97,7 +102,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 				});
 			}
 		}
-	};
+  };
 
 	return (
 		<>

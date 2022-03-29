@@ -6,6 +6,8 @@ import "./PageAdvancedSearch.scss";
 import FormSearch from "../../components/forms/FormSearch/FormSearch";
 import Options from "../../utils/queryOptions.mjs";
 import ChartApp from "../../components/charts/ChartApp";
+import getDecisionDatesStats from "../../utils/decisionDatesStats.mjs";
+import CardList from "../../components/CardList/CardList";
 
 const PageSearch = (props) => {
 	// console.log(props)
@@ -16,13 +18,9 @@ const PageSearch = (props) => {
 	const [datasetAppSize, setDatasetAppSize] = useState("");
 	const [responseSize, setResponseSize] = useState("");
 
-	const [registrationDuration, setRegistrationDuration] = useState("");
-	const [decisionTarget, setDecisionTarget] = useState("");
-	const [decisionDuration, setDecisionDuration] = useState("");
-	const [totalDuration, setTotalDuration] = useState("");
+	const [durationData, setDurationData] = useState("");
 
 	useEffect(() => {
-		console.log("rawData effect update");
 		rawData && analyseData();
 	}, [rawData]);
 
@@ -74,44 +72,10 @@ const PageSearch = (props) => {
 			console.log(e);
 		}
 
-		getDecisionDatesStats();
+		setDurationData(getDecisionDatesStats(rawData));
 
 		console.log("❌ is loading to false ");
 		setIsDataLoading(false);
-	};
-
-	const getDecisionDatesStats = () => {
-		let registrationDuration = null;
-		let decisionTarget = null;
-		let decisionDuration = null;
-		let totalDuration = null;
-
-		rawData.forEach((app) => {
-			let date_received = dayjs(app.date_received);
-			let date_validated = dayjs(app.date_validated);
-			let target_decision_date = dayjs(app.target_decision_date);
-			let decided_date = dayjs(app.decided_date);
-
-			registrationDuration +=
-				date_validated.diff(date_received, "day") / rawData.length || 0;
-			decisionTarget +=
-				target_decision_date.diff(date_validated, "day") / rawData.length ||
-				0;
-			decisionDuration +=
-				decided_date.diff(date_validated, "day") / rawData.length || 0;
-			totalDuration +=
-				decided_date.diff(date_received, "day") / rawData.length || 0;
-		});
-
-		// console.log("reg dur", registrationDuration);
-		// console.log("target dur", decisionTarget);
-		// console.log("decision dur", decisionDuration);
-		// console.log("total dur", totalDuration);
-
-		setDecisionDuration(decisionDuration);
-		setDecisionTarget(decisionTarget);
-		setTotalDuration(totalDuration);
-		setRegistrationDuration(registrationDuration);
 	};
 
 	return (
@@ -146,16 +110,12 @@ const PageSearch = (props) => {
 						chartType="bar"
 						thresholdValueIndex="1"
 						chartLabel="Application Duration"
-						dataset={[
-							registrationDuration,
-							decisionTarget,
-							decisionDuration,
-							totalDuration,
-						]}
+						dataset={durationData}
 						labels={Options.duration()}
 					/>
 				</div>
 			</section>
+			<section>{rawData && <CardList rawData={rawData} />}</section>
 		</>
 	);
 };

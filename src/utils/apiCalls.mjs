@@ -1,22 +1,22 @@
 import axios from "axios";
 
-const staticQueryFields =
-	"&select=app_size," +
-	"scraper_name," +
-	"app_state," +
-	"app_type," +
-	"description," +
-	"other_fields->application_type," +
-	"other_fields->description," +
-	"other_fields->status," +
-	"other_fields->decision," +
-	"other_fields->development_type," +
-	"other_fields->n_statutory_days," +
-	"other_fields->date_validated," +
-	"other_fields->date_received," +
-	"other_fields->target_decision_date," +
-	"other_fields->decision_date," +
-	"decided_date";
+// const staticQueryFields =
+// 	"&select=app_size," +
+// 	"scraper_name," +
+// 	"app_state," +
+// 	"app_type," +
+// 	"description," +
+// 	"other_fields->application_type," +
+// 	"other_fields->description," +
+// 	"other_fields->status," +
+// 	"other_fields->decision," +
+// 	"other_fields->development_type," +
+// 	"other_fields->n_statutory_days," +
+// 	"other_fields->date_validated," +
+// 	"other_fields->date_received," +
+// 	"other_fields->target_decision_date," +
+// 	"other_fields->decision_date," +
+// 	"decided_date";
 
 const GET_QUERY_SEARCH = (
 	auth,
@@ -33,12 +33,9 @@ const GET_QUERY_SEARCH = (
 			process.env.REACT_APP_QUERY_URL +
 			"auth=" +
 			auth +
-			"&app_type=" +
-			appType +
-			"&app_state=" +
-			appState +
-			"&app_size=" +
-			appSize +
+			(appType ? "&app_type=" + appType : "") +
+			(appState ? "&app_state=" + appState : "") +
+			(appSize ? "&app_size=" + appSize : "") +
 			"&pg_sz=" +
 			resultsSize +
 			"&start_date=" +
@@ -46,8 +43,7 @@ const GET_QUERY_SEARCH = (
 			"&end_date=" +
 			end_date +
 			//* Search
-			(search_terms ? `&search=${search_terms}` : "") +
-			staticQueryFields
+			(search_terms ? `&search=${search_terms}` : "")
 	);
 };
 
