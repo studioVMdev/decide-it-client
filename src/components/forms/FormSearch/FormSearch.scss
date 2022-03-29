@@ -1,0 +1,16 @@
+@use "../../../styles/partials/utils/index" as *;
+
+.form{
+
+
+  max-width:500px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+  // @include flex(center, center, column);
+  gap: 2rem;
+
+  & > *{
+    padding: 1rem 0rem;
+  }
+}

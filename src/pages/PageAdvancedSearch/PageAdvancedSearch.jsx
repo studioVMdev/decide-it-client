@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import dayjs from "dayjs";
-import "./PageSearch.scss"
+import "./PageAdvancedSearch.scss";
 
-import FormSearch from "../components/forms/FormSearch";
-import Options from "../utils/queryOptions.mjs";
-import ChartApp from "../components/charts/ChartApp";
+import FormSearch from "../../components/forms/FormSearch/FormSearch";
+import Options from "../../utils/queryOptions.mjs";
+import ChartApp from "../../components/charts/ChartApp";
 
 const PageSearch = (props) => {
 	// console.log(props)
