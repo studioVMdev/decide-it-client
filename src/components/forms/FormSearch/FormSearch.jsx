@@ -150,7 +150,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 					/>
 
 					<Select
-						clearable="true"
+						clearable="false"
 						value={appState}
 						onChange={setAppState}
 						label="Application State"
@@ -159,6 +159,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 					/>
 
 					<DatePicker
+						clearable="false"
 						value={new Date(startDate)}
 						label="Start Date"
 						maxDate={new Date(endDate)}
@@ -166,6 +167,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 					/>
 
 					<DatePicker
+						clearable="false"
 						value={new Date(endDate)}
 						label="End Date"
 						minDate={new Date(startDate)}

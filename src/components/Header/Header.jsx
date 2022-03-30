@@ -12,7 +12,7 @@ const Header = () => {
 
 	return (
 		<>
-			<Group>
+			<Group position="right">
 				{links.map((link) => (
 					<Button key={link.label} variant="outline">
 						<NavLink to={link.link} activeClassName="selected">
@@ -24,24 +24,7 @@ const Header = () => {
 		</>
 	);
 
-	// return (
-	// 	<>
-	// 		<div className="header">
-	// 			<div className="header__container">
-	// 				<div className="nav">
-	// 					<nav>
-	// 						<NavLink to="/simple-search" activeClassName="selected">
-	// 							Simple
-	// 						</NavLink>
-	// 						<NavLink to="/advanced-search" activeClassName="selected">
-	// 							Advanced
-	// 						</NavLink>
-	// 					</nav>
-	// 				</div>
-	// 			</div>
-	// 		</div>
-	// 	</>
-	// );
+
 };
 
 export default Header;

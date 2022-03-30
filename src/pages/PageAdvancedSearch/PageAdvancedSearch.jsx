@@ -94,7 +94,7 @@ const PageSearch = (props) => {
 					/>
 
 					<ChartApp
-						chartType="line"
+						chartType="bar"
 						dataset={datasetAppSize}
 						chartLabel="Application Size"
 						labels={Options.appSize()}

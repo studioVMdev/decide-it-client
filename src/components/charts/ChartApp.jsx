@@ -44,7 +44,13 @@ const ChartApp = ({
 	}
 
 	const chartOptions = {
+		responsive: true,
 		aspectRatio: 2,
+		maintainAspectRatio: false,
+		interaction: {
+			intersect: false,
+			mode: "index",
+		},
 		plugins: {
 			title: {
 				display: true,
@@ -66,6 +72,7 @@ const ChartApp = ({
 			},
 		},
 	};
+
 
 	return (
 		<div className="chart__single">
