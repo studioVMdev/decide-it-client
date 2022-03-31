@@ -110,7 +110,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 			<Paper shadow="xs" p="md" m="md" withBorder>
 				<form
 					className="form"
-					grow
+					grow="true"
 					style={{ display: "flex", flexDirection: "column" }}
 				>
 					<div className="form__container">
@@ -133,7 +133,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 								> */}
 								<Select
 									error={!authority ? true : false}
-									clearable
+									clearable="true"
 									searchable
 									required
 									value={authority}
@@ -145,7 +145,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 								{/* </InputWrapper> */}
 
 								<Select
-									clearable
+									clearable="true"
 									value={appSize}
 									onChange={setAppSize}
 									label="Application Size"
@@ -154,7 +154,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 								/>
 
 								<Select
-									clearable
+									clearable="true"
 									value={appType}
 									onChange={setAppType}
 									label="Application Type"
@@ -163,7 +163,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 								/>
 
 								<Select
-									clearable
+									clearable="true"
 									value={appState}
 									onChange={setAppState}
 									label="Application State"
@@ -200,7 +200,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 								/>
 
 								<TextInput
-									clearable
+									clearable="true"
 									value={searchTerms}
 									onChange={(event) =>
 										setSearchTerms(event.currentTarget.value)

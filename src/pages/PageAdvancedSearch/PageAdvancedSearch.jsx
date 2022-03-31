@@ -170,6 +170,7 @@ const PageSearch = (props) => {
 						const { chartType, dataset, chartLabel, labels } = chartProps;
 						return (
 							<Paper
+								key={chartLabel}
 								style={{
 									overflow: "auto",
 									border:
