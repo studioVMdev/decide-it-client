@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./ChartApp.scss";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 import {
 	Chart as ChartJS,
@@ -17,6 +18,7 @@ import {
 import { Chart } from "react-chartjs-2";
 
 ChartJS.register(
+	ChartDataLabels,
 	CategoryScale,
 	LinearScale,
 	BarElement,
@@ -45,8 +47,8 @@ const ChartApp = ({
 
 	const chartOptions = {
 		responsive: true,
-		aspectRatio: 2,
-		maintainAspectRatio: false,
+		// aspectRatio: 2,
+		maintainAspectRatio: true,
 		interaction: {
 			intersect: false,
 			mode: "index",
@@ -66,13 +68,31 @@ const ChartApp = ({
 			// 	display: true,
 			// 	text: "subtitle",
 			// },
+			datalabels: {
+				display: true,
+				color: "slategray",
+				align: "end",
+				padding: {
+					top: 24,
+				},
+				labels: {
+					padding: { top: 10 },
+					title: {
+						font: {
+							weight: "regular",
+						},
+					},
+					value: {
+						color: "green",
+					},
+				},
+			},
 			legend: {
 				display: false,
 				position: "bottom",
 			},
 		},
 	};
-
 
 	return (
 		<div className="chart__single">
@@ -113,11 +133,11 @@ const ChartApp = ({
 							],
 							borderWidth: 1,
 						},
-						{
-							type: "line",
-							data: thresholdHighArray,
-							borderColor: "red",
-						},
+						// {
+						// 	type: "line",
+						// 	data: thresholdHighArray,
+						// 	borderColor: "red",
+						// },
 					],
 				}}
 				options={chartOptions}

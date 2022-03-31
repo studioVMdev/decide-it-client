@@ -106,7 +106,6 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 
 	return (
 		<>
-			<div className="form">FormSearch</div>
 			<form
 				className="form"
 				style={{ display: "flex", flexDirection: "column" }}

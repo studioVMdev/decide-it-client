@@ -79,10 +79,11 @@ const CardApp = ({ appData }) => {
 						cols={7}
 						spacing="xs"
 						breakpoints={[
-							{ maxWidth: 1120, cols: 5, spacing: "sm" },
-							{ maxWidth: 980, cols: 4, spacing: "sm" },
-							{ maxWidth: 755, cols: 3, spacing: "xs" },
-							{ maxWidth: 600, cols: 2, spacing: "xs" },
+							{ maxWidth: 1120, cols: 6, spacing: "sm" },
+							{ maxWidth: 1000, cols: 5, spacing: "sm" },
+							{ maxWidth: 850, cols: 4, spacing: "sm" },
+							{ maxWidth: 650, cols: 3, spacing: "xs" },
+							{ maxWidth: 500, cols: 2, spacing: "xs" },
 						]}
 					>
 						{cellsData.map((cell, index) => (

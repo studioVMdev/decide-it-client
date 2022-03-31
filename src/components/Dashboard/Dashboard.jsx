@@ -8,8 +8,9 @@ import { query, collection, getDocs, where } from "firebase/firestore";
 function Dashboard() {
 	const [user, loading, error] = useAuthState(auth);
 	const [name, setName] = useState("");
-	const navigate = useNavigate();
-	const fetchUserName = async () => {
+  const navigate = useNavigate();
+
+  const fetchUserName = async () => {
 		try {
 			const q = query(
 				collection(db, "users"),
@@ -22,12 +23,15 @@ function Dashboard() {
 			console.error(err);
 			alert("An error occured while fetching user data");
 		}
-	};
-	useEffect(() => {
+  };
+
+  useEffect(() => {
 		if (loading) return;
 		if (!user) return navigate("/");
 		fetchUserName();
-	}, [user, loading]);
+  }, [user, loading]);
+  
+  
 	return (
 		<div className="dashboard">
 			<div className="dashboard__container">

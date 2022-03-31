@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./CardList.scss";
 
-import { Text, Pagination } from "@mantine/core";
+import { Text, Pagination, Divider } from "@mantine/core";
 
 import CardApp from "../cards/CardApp/CardApp";
 
@@ -17,7 +17,11 @@ const CardList = ({ rawData }) => {
 
 	return (
 		<>
-			<Text mb={10}>CardList </Text>
+			<Divider
+				my="xs"
+				label="Detailed Applications List"
+				labelPosition="center"
+			/>
 			{slicedData.map((appData) => {
 				return <CardApp key={appData.uid} appData={appData} />;
 			})}
