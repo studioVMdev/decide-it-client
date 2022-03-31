@@ -91,6 +91,58 @@ const ChartApp = ({
 				position: "bottom",
 			},
 		},
+		scales: {
+			y: {
+				grid: {
+					borderColor: "slategrey",
+					// drawBorder: true,
+					// display: true,
+					// drawOnChartArea: true,
+					// drawTicks: false,
+					borderDash: [2, 2],
+					color: "slategrey",
+					color: "lightgrey",
+				},
+				ticks: {
+					suggestedMin: 0,
+					suggestedMax: 500,
+					beginAtZero: true,
+					padding: 10,
+					font: {
+						// size: 14,
+						// weight: 300,
+						// family: "Roboto",
+						// style: "normal",
+						// lineHeight: 2,
+					},
+					color: "slategrey",
+				},
+			},
+			x: {
+				grid: {
+					borderColor: "slategrey",
+					drawBorder: true,
+					display: true,
+					drawOnChartArea: true,
+					drawTicks: false,
+					borderDash: [2, 2],
+					color: "slategrey",
+					color: "lightgrey",
+				},
+				ticks: {
+					display: true,
+					padding: 10,
+					font: {
+						// size: 14,
+						// weight: 300,
+						// family: "Roboto",
+						// style: "normal",
+						// lineHeight: 2,
+					},
+					color: "slategrey",
+				},
+			},
+		},
 	};
 
 	return (
@@ -132,6 +184,11 @@ const ChartApp = ({
 								"rgba(153, 102, 255, 1)",
 							],
 							borderWidth: 1,
+							weight: 5,
+							// borderWidth: 0,
+							borderRadius: 4,
+							fill: false,
+							maxBarThickness: 35,
 						},
 						// {
 						// 	type: "line",

@@ -107,7 +107,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 
 	return (
 		<>
-			<Paper shadow="xs" p="md" m="md" withBorder>
+			<Paper shadow="xs" p="md" m="sm" withBorder>
 				<form
 					className="form"
 					grow="true"

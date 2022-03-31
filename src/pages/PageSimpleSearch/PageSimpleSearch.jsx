@@ -195,61 +195,63 @@ const PageSimpleSearch = () => {
 
 	return (
 		<>
-			<Stepper
-				active={active}
-				iconSize={32}
-				onStepClick={setActive}
-				// orientation="vertical"
-				breakpoint="sm"
-			>
-				<Stepper.Step
-					label="Fist step"
-					description="Enter Your Postcode"
-					allowStepSelect={active > 0}
+			<Paper shadow="xs" p="md" m="sm" withBorder>
+				<Stepper
+					active={active}
+					iconSize={32}
+					onStepClick={setActive}
+					// orientation="vertical"
+					breakpoint="sm"
 				>
-					Enter Your Postcode in this format AA9A 9AA
-				</Stepper.Step>
-				<Stepper.Step
-					label="Second step"
-					description="Verify email"
-					allowStepSelect={active > 1}
-				>
-					Step 2 content: Verify email
-				</Stepper.Step>
-				<Stepper.Step
-					label="Final step"
-					description="Get full access"
-					allowStepSelect={active > 2}
-				>
-					Step 3 content: Get full access
-				</Stepper.Step>
-				<Stepper.Completed>
-					All set, we are ready to perform the search! Let's
-				</Stepper.Completed>
-			</Stepper>
+					<Stepper.Step
+						label="Fist step"
+						description="Enter Your Postcode"
+						allowStepSelect={active > 0}
+					>
+						Enter Your Postcode in this format AA9A 9AA
+					</Stepper.Step>
+					<Stepper.Step
+						label="Second step"
+						description="Verify email"
+						allowStepSelect={active > 1}
+					>
+						Step 2 content: Verify email
+					</Stepper.Step>
+					<Stepper.Step
+						label="Final step"
+						description="Get full access"
+						allowStepSelect={active > 2}
+					>
+						Step 3 content: Get full access
+					</Stepper.Step>
+					<Stepper.Completed>
+						All set, we are ready to perform the search! Let's
+					</Stepper.Completed>
+				</Stepper>
 
-			<>
-				{active === 0 && firstQuestionJSX}
-				{active === 1 && secondQuestionJSX}
-				{active === 2 && thirdQuestionJSX}
-				{active === 3 && finalStepJSX}
-			</>
+				<>
+					{active === 0 && firstQuestionJSX}
+					{active === 1 && secondQuestionJSX}
+					{active === 2 && thirdQuestionJSX}
+					{active === 3 && finalStepJSX}
+				</>
 
-			<Group position="center" mt="xl">
-				<Button variant="default" onClick={prevStep}>
-					Back
-				</Button>
-				{active < 3 ? (
-					<Button onClick={nextStep}>Next step</Button>
-				) : (
-					<Button onClick={handleSubmit}>Submit</Button>
-				)}
-			</Group>
+				<Group position="center" mt="xl">
+					<Button variant="default" onClick={prevStep}>
+						Back
+					</Button>
+					{active < 3 ? (
+						<Button onClick={nextStep}>Next step</Button>
+					) : (
+						<Button onClick={handleSubmit}>Submit</Button>
+					)}
+				</Group>
+			</Paper>
 
 			<ChartApp
-				chartType="bar"
+				chartType="line"
 				thresholdValueIndex="1"
-				chartLabel="Application Duration"
+				chartLabel="Decision Duration / Days"
 				dataset={durationData}
 				labels={Options.duration()}
 			/>

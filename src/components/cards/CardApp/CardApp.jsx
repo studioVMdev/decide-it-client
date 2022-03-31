@@ -13,7 +13,8 @@ import {
 import "./CardApp.scss";
 
 const CardApp = ({ appData }) => {
-	const [opened, setOpen] = useState(false);
+	// const [opened, setOpen] = useState(false);
+
 	const defaultColor = "gray";
 	const cellsData = [
 		{

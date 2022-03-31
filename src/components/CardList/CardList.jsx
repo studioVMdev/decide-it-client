@@ -17,11 +17,11 @@ const CardList = ({ rawData }) => {
 
 	return (
 		<>
-			<Divider
+			{/* <Divider
 				my="xs"
 				label="Detailed Applications List"
 				labelPosition="center"
-			/>
+			/> */}
 			{slicedData.map((appData) => {
 				return <CardApp key={appData.uid} appData={appData} />;
 			})}

@@ -11,7 +11,7 @@ ReactDOM.render(
 			<NotificationsProvider>
 				<MantineProvider
 					theme={{
-						colorScheme: "light",
+						colorScheme: "dark",
 						breakpoints: {
 							xs: 500,
 							sm: 800,

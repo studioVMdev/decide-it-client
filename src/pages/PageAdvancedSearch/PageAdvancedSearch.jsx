@@ -42,10 +42,7 @@ const PageSearch = (props) => {
 			}
 		}
 
-		if (
-			durationData[1] >= durationData[2] &&
-			durationData[0] <= durationData[1]
-		) {
+		if (durationData[0] > durationData[1]) {
 			setConfidenceLevel("low");
 			return;
 		}
@@ -53,6 +50,14 @@ const PageSearch = (props) => {
 		if (
 			durationData[0] >= durationData[1] &&
 			durationData[1] <= durationData[2]
+		) {
+			setConfidenceLevel("medium");
+			return;
+		}
+
+		if (
+			durationData[0] <= durationData[1] &&
+			durationData[1] >= durationData[2]
 		) {
 			setConfidenceLevel("medium");
 			return;
@@ -146,7 +151,7 @@ const PageSearch = (props) => {
 		{
 			chartType: "bar",
 			dataset: durationData,
-			chartLabel: "Application Duration",
+			chartLabel: "Decision Duration/ Days",
 			thresholdValueIndex: "",
 			labels: Options.duration(),
 		},
@@ -172,13 +177,14 @@ const PageSearch = (props) => {
 							<Paper
 								key={chartLabel}
 								style={{
+									zIndex: "-1",
 									overflow: "auto",
 									border:
-										chartLabel === "Application Duration"
+										chartLabel === "Decision Duration/ Days"
 											? `3px solid rgb(${confidenceLevelColor[confidenceLevel]})`
 											: "",
 									backgroundColor:
-										chartLabel === "Application Duration"
+										chartLabel === "Decision Duration/ Days"
 											? `rgba(${confidenceLevelColor[confidenceLevel]},0.07)`
 											: "",
 								}}
@@ -202,8 +208,14 @@ const PageSearch = (props) => {
 				</div>
 			</section>
 			<Accordion>
-				<Accordion.Item label="Detailed Applications List">
-					<section>{rawData && <CardList rawData={rawData} />}</section>
+				<Accordion.Item
+					styles={{
+						content: { padding: 0 },
+						contentInner: { padding: 0 },
+					}}
+					label="Detailed Applications List"
+				>
+					{rawData && <CardList rawData={rawData} />}
 				</Accordion.Item>
 			</Accordion>
 		</>
