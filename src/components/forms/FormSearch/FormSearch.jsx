@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import "./FormSearch.scss";
 import { useNotifications } from "@mantine/notifications";
-import { Divider } from "@mantine/core";
+import { Divider, SimpleGrid, Paper, Group } from "@mantine/core";
+import { DatePicker } from "@mantine/dates";
 import dayjs from "dayjs";
-
-import InputText from "../../inputs/InputText/InputText";
-import InputSelect from "../../inputs/InputSelect/InputSelect";
-import InputNumber from "../../inputs/InputNumber/InputNumber";
-import InputDate from "../../inputs/InputDate/InputDate";
 
 import {
 	TextInput,
@@ -16,7 +12,6 @@ import {
 	Button,
 	InputWrapper,
 } from "@mantine/core";
-import { DatePicker } from "@mantine/dates";
 
 import Options from "../../../utils/queryOptions.mjs";
 import { GET_QUERY_SEARCH } from "../../../utils/apiCalls.mjs";
@@ -28,31 +23,31 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 	const [appSize, setAppSize] = useState("Small");
 	const [appType, setAppType] = useState("Full");
 	const [appState, setAppState] = useState("");
-  const [resultsSize, setResultsSize] = useState(10);
-  const [searchTerms, setSearchTerms] = useState("");
+	const [resultsSize, setResultsSize] = useState(10);
+	const [searchTerms, setSearchTerms] = useState("");
 
-  //! This start date is always 12 months in the past
-  const [startDate, setStartDate] = useState(
+	//! This start date is always 12 months in the past
+	const [startDate, setStartDate] = useState(
 		dayjs(dayjs().subtract(12, "month")).format("YYYY-MM-DD")
-  );
-  //! This end date is always 6 months in the past
-  const [endDate, setEndDate] = useState(
+	);
+	//! This end date is always 6 months in the past
+	const [endDate, setEndDate] = useState(
 		dayjs(dayjs().subtract(6, "month")).format("YYYY-MM-DD")
-  );
+	);
 
-  const handleStartDateChange = (val) => {
+	const handleStartDateChange = (val) => {
 		const formattedDate = dayjs(val).format("YYYY-MM-DD");
 		setStartDate(formattedDate);
 		console.log(startDate);
-  };
+	};
 
-  const handleEndDateChange = (val) => {
+	const handleEndDateChange = (val) => {
 		const formattedDate = dayjs(val).format("YYYY-MM-DD");
 		setEndDate(formattedDate);
 		console.log(endDate);
-  };
+	};
 
-  const handleSubmit = async (e) => {
+	const handleSubmit = async (e) => {
 		notifications.hideNotification("networkErrorNotification");
 
 		console.log("✔ is loading to true ");
@@ -85,9 +80,9 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 			console.log(response.data.records);
 			setRawData(response.data.records);
 			setResponseSize(response.data.records.length);
-      notifications.hideNotification("fetchingNotification");
-      
-      response.status===400 && console.log(response.data.error);
+			notifications.hideNotification("fetchingNotification");
+
+			response.status === 400 && console.log(response.data.error);
 		} catch (error) {
 			if (error.message === "Network Error") {
 				notifications.hideNotification("fetchingNotification");
@@ -102,101 +97,118 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 				});
 			}
 		}
-  };
+	};
 
 	return (
 		<>
-			<form
-				className="form"
-				style={{ display: "flex", flexDirection: "column" }}
-			>
-				<div className="form__container">
-					<InputWrapper
-						id="input-authority"
-						required={true}
-						// label="Local Authority Required"
-						// description="Please select a local authority"
-						error={!authority ? "This field is required" : ""}
-					>
-						<Select
-							clearable="true"
-							searchable
-							required
-							value={authority}
-							onChange={setAuthority}
-							label="Local Authority"
-							placeholder="Local Authority"
-							data={Options.authority()}
-						/>
-					</InputWrapper>
+			<Paper shadow="xs" p="md" m="md" withBorder>
+				<form
+					className="form"
+					grow
+					style={{ display: "flex", flexDirection: "column" }}
+				>
+					<div className="form__container">
+						<SimpleGrid
+							cols={2}
+							spacing="xs"
+							breakpoints={[{ maxWidth: 500, cols: 1, spacing: "xs" }]}
+						>
+							<Group
+								className="form__group-wrapper"
+								spacing="sm"
+								sx={{ flexDirection: "column" }}
+							>
+								<InputWrapper
+									id="input-authority"
+									required={true}
+									// label="Local Authority Required"
+									// description="Please select a local authority"
+									error={!authority ? "This field is required" : ""}
+								>
+									<Select
+										clearable
+										searchable
+										required
+										value={authority}
+										onChange={setAuthority}
+										label="Local Authority"
+										placeholder="Local Authority"
+										data={Options.authority()}
+									/>
+								</InputWrapper>
 
-					<Select
-						clearable="true"
-						value={appSize}
-						onChange={setAppSize}
-						label="Application Size"
-						placeholder="Application Size"
-						data={Options.appSize()}
-					/>
+								<Select
+									clearable
+									value={appSize}
+									onChange={setAppSize}
+									label="Application Size"
+									placeholder="Application Size"
+									data={Options.appSize()}
+								/>
 
-					<Select
-						clearable="true"
-						value={appType}
-						onChange={setAppType}
-						label="Application Type"
-						placeholder="Application Type"
-						data={Options.appType()}
-					/>
+								<Select
+									clearable
+									value={appType}
+									onChange={setAppType}
+									label="Application Type"
+									placeholder="Application Type"
+									data={Options.appType()}
+								/>
 
-					<Select
-						clearable="false"
-						value={appState}
-						onChange={setAppState}
-						label="Application State"
-						placeholder="Application State"
-						data={Options.appState()}
-					/>
+								<Select
+									clearable
+									value={appState}
+									onChange={setAppState}
+									label="Application State"
+									placeholder="Application State"
+									data={Options.appState()}
+								/>
+							</Group>
+							<Group
+								className="form__group-wrapper"
+								spacing="sm"
+								style={{ display: "flex", flexDirection: "column" }}
+							>
+								<DatePicker
+									value={new Date(startDate)}
+									label="Start Date"
+									maxDate={new Date(endDate)}
+									onChange={handleStartDateChange}
+								/>
 
-					<DatePicker
-						clearable="false"
-						value={new Date(startDate)}
-						label="Start Date"
-						maxDate={new Date(endDate)}
-						onChange={handleStartDateChange}
-					/>
+								<DatePicker
+									value={new Date(endDate)}
+									label="End Date"
+									minDate={new Date(startDate)}
+									onChange={handleEndDateChange}
+								/>
 
-					<DatePicker
-						clearable="false"
-						value={new Date(endDate)}
-						label="End Date"
-						minDate={new Date(startDate)}
-						onChange={handleEndDateChange}
-					/>
+								<NumberInput
+									min={10}
+									value={resultsSize}
+									label="Number of Applications"
+									placeholder="Number of Applications"
+									onChange={(val) => setResultsSize(val)}
+								/>
 
-					<NumberInput
-						clearable="true"
-						min={10}
-						value={resultsSize}
-						label="Number of Applications"
-						placeholder="Number of Applications"
-						onChange={(val) => setResultsSize(val)}
-					/>
+								<TextInput
+									clearable
+									value={searchTerms}
+									onChange={(event) =>
+										setSearchTerms(event.currentTarget.value)
+									}
+									label="Search Keywords"
+									placeholder="Search Keywords"
+								/>
+							</Group>
+						</SimpleGrid>
 
-					<TextInput
-						clearable="true"
-						value={searchTerms}
-						onChange={(event) =>
-							setSearchTerms(event.currentTarget.value)
-						}
-						label="Search Keywords"
-						placeholder="Search Keywords"
-					/>
-
-					<Button fullWidth onClick={handleSubmit}>
-						Search
-					</Button>
-				</div>
-			</form>
+						<Button fullWidth onClick={handleSubmit}>
+							Search
+						</Button>
+					</div>
+				</form>
+			</Paper>
 			<Divider my="xs" label="Search Results" labelPosition="center" />
 			<h2 className="total-results">
 				{responseSize &&
