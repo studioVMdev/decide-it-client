@@ -42,7 +42,7 @@ const CardApp = ({ appData }) => {
 			Rejected: "red",
 		},
 		{
-			text: "Validated:",
+			text: "Valid:",
 			data: appData.other_fields.date_validated || "INVALID",
 		},
 		{
@@ -76,6 +76,7 @@ const CardApp = ({ appData }) => {
 						onChange={(event) => setOpen(event.currentTarget.checked)}
 					/> */}
 					<SimpleGrid
+						sx={{ width: "100%" }}
 						cols={7}
 						spacing="xs"
 						breakpoints={[
@@ -104,6 +105,7 @@ const CardApp = ({ appData }) => {
 
 						<Group spacing="xs">
 							<Badge
+								fullWidth
 								target="_blank"
 								component="a"
 								href={appData.url}
@@ -112,20 +114,7 @@ const CardApp = ({ appData }) => {
 								Link to App...
 							</Badge>
 						</Group>
-
-						{/* <details>
-							<summary>Sumary here</summary>
-							Extra details
-						</details> */}
 					</SimpleGrid>
-					<div className="collapse">
-						{/* <Collapse in={opened}>
-							{allPropertiesJSX.map((each) => (
-								<>{each}</>
-							))}
-							<pre>appData</pre>
-						</Collapse> */}
-					</div>
 				</Group>
 			</Paper>
 		</>

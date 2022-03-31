@@ -17,17 +17,18 @@ import {
 	addDoc,
 } from "firebase/firestore";
 const firebaseConfig = {
-	apiKey: "AIzaSyDIXJ5YT7hoNbBFqK3TBcV41-TzIO-7n7w",
-	authDomain: "fir-auth-6edd8.firebaseapp.com",
-	projectId: "fir-auth-6edd8",
-	storageBucket: "fir-auth-6edd8.appspot.com",
-	messagingSenderId: "904760319835",
-	appId: "1:904760319835:web:44fd0d957f114b4e51447e",
-	measurementId: "G-Q4TYKH9GG7",
+	apiKey: "AIzaSyCEPbE4DsGKat6NBHmSMCQqNfO3S6EFAjw",
+	authDomain: "plan-insight-firebase.firebaseapp.com",
+	projectId: "plan-insight-firebase",
+	storageBucket: "plan-insight-firebase.appspot.com",
+	messagingSenderId: "758060799345",
+	appId: "1:758060799345:web:18db0779253943187d92d0",
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+console.log(auth);
 const db = getFirestore(app);
+console.log(db);
 const googleProvider = new GoogleAuthProvider();
 const signInWithGoogle = async () => {
 	try {

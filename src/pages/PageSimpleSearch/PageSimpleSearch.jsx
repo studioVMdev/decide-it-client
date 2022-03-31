@@ -4,7 +4,7 @@ import Options from "../../utils/queryOptions.mjs";
 import getDecisionDatesStats from "../../utils/decisionDatesStats.mjs";
 import dayjs from "dayjs";
 import { useNotifications } from "@mantine/notifications";
-
+import { Accordion } from "@mantine/core";
 import ChartApp from "../../components/charts/ChartApp";
 import CardList from "../../components/CardList/CardList";
 
@@ -253,8 +253,11 @@ const PageSimpleSearch = () => {
 				dataset={durationData}
 				labels={Options.duration()}
 			/>
-
-			{!isDataLoading && <CardList rawData={rawData} />}
+			<Accordion>
+				<Accordion.Item label="Detailed Applications List">
+					{!isDataLoading && <CardList rawData={rawData} />}
+				</Accordion.Item>
+			</Accordion>
 		</>
 	);
 };

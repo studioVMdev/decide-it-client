@@ -4,17 +4,19 @@ import { useNotifications } from "@mantine/notifications";
 import { Divider, SimpleGrid, Paper, Group } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import dayjs from "dayjs";
-
+import { Search } from "tabler-icons-react";
 import {
 	TextInput,
 	NumberInput,
 	Select,
 	Button,
 	InputWrapper,
+	Box,
 } from "@mantine/core";
 
 import Options from "../../../utils/queryOptions.mjs";
 import { GET_QUERY_SEARCH } from "../../../utils/apiCalls.mjs";
+import { auth } from "../../../firebase";
 
 const FormSearch = ({ setRawData, setIsDataLoading }) => {
 	const notifications = useNotifications();
@@ -24,6 +26,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 	const [appType, setAppType] = useState("Full");
 	const [appState, setAppState] = useState("");
 	const [resultsSize, setResultsSize] = useState(10);
+	const [searchedResultsSize, setSearchedResultsSize] = useState("");
 	const [searchTerms, setSearchTerms] = useState("");
 
 	//! This start date is always 12 months in the past
@@ -48,6 +51,8 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 	};
 
 	const handleSubmit = async (e) => {
+		if (!authority || !startDate || !endDate) return;
+
 		notifications.hideNotification("networkErrorNotification");
 
 		console.log("✔ is loading to true ");
@@ -80,6 +85,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 			console.log(response.data.records);
 			setRawData(response.data.records);
 			setResponseSize(response.data.records.length);
+			setSearchedResultsSize(resultsSize);
 			notifications.hideNotification("fetchingNotification");
 
 			response.status === 400 && console.log(response.data.error);
@@ -115,27 +121,28 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 						>
 							<Group
 								className="form__group-wrapper"
-								spacing="sm"
+								spacing="md"
 								sx={{ flexDirection: "column" }}
 							>
-								<InputWrapper
+								{/* <InputWrapper
 									id="input-authority"
 									required={true}
 									// label="Local Authority Required"
 									// description="Please select a local authority"
 									error={!authority ? "This field is required" : ""}
-								>
-									<Select
-										clearable
-										searchable
-										required
-										value={authority}
-										onChange={setAuthority}
-										label="Local Authority"
-										placeholder="Local Authority"
-										data={Options.authority()}
-									/>
-								</InputWrapper>
+								> */}
+								<Select
+									error={!authority ? true : false}
+									clearable
+									searchable
+									required
+									value={authority}
+									onChange={setAuthority}
+									label="Local Authority"
+									placeholder="Local Authority"
+									data={Options.authority()}
+								/>
+								{/* </InputWrapper> */}
 
 								<Select
 									clearable
@@ -164,9 +171,10 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 									data={Options.appState()}
 								/>
 							</Group>
+
 							<Group
 								className="form__group-wrapper"
-								spacing="sm"
+								spacing="md"
 								style={{ display: "flex", flexDirection: "column" }}
 							>
 								<DatePicker
@@ -203,16 +211,26 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 							</Group>
 						</SimpleGrid>
 
-						<Button fullWidth onClick={handleSubmit}>
+						<Button mt={20} fullWidth onClick={handleSubmit}>
 							Search
 						</Button>
 					</div>
 				</form>
 			</Paper>
-			<Divider my="xs" label="Search Results" labelPosition="center" />
+			<Divider
+				my="xs"
+				variant="dashed"
+				labelPosition="center"
+				label={
+					<>
+						<Search size={12} />
+						<Box ml={5}>Search results</Box>
+					</>
+				}
+			/>
 			<h2 className="total-results">
 				{responseSize &&
-					`Retrieved ${responseSize} out of ${resultsSize} requested applications.`}
+					`Retrieved ${responseSize} out of ${searchedResultsSize} requested applications.`}
 			</h2>
 		</>
 	);

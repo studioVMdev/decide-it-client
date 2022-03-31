@@ -37,18 +37,17 @@ const ChartApp = ({
 	chartType,
 	thresholdValueIndex = null,
 }) => {
-	let thresholdHighArray = null;
-	// console.log(dataset[+thresholdValueIndex]);
-	if (thresholdValueIndex) {
-		thresholdHighArray = new Array(dataset.length).fill(
-			dataset[+thresholdValueIndex]
-		);
-	}
+	// let thresholdHighArray = null;
+	// if (thresholdValueIndex) {
+	// 	thresholdHighArray = new Array(dataset.length).fill(
+	// 		dataset[+thresholdValueIndex]
+	// 	);
+	// }
 
 	const chartOptions = {
 		responsive: true,
-		// aspectRatio: 2,
-		maintainAspectRatio: true,
+		aspectRatio: 2,
+		// maintainAspectRatio: true,
 		interaction: {
 			intersect: false,
 			mode: "index",
@@ -97,6 +96,7 @@ const ChartApp = ({
 	return (
 		<div className="chart__single">
 			<Chart
+				style={{ width: "100% !important" }}
 				data={{
 					labels: labels,
 					datasets: [

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import dayjs from "dayjs";
 import "./PageAdvancedSearch.scss";
+import { Accordion, Paper, Center } from "@mantine/core";
 
 import FormSearch from "../../components/forms/FormSearch/FormSearch";
 import Options from "../../utils/queryOptions.mjs";
@@ -19,12 +20,55 @@ const PageSearch = (props) => {
 	const [responseSize, setResponseSize] = useState("");
 
 	const [durationData, setDurationData] = useState("");
+	const [confidenceLevel, setConfidenceLevel] = useState("");
 
 	useEffect(() => {
-		rawData && analyseData();
+		rawData && processData();
 	}, [rawData]);
 
-	const analyseData = async () => {
+	useEffect(() => {
+		durationData && getConfidenceLevel();
+	}, [durationData]);
+
+	const getConfidenceLevel = () => {
+		console.log("assessing confidence level");
+		console.log(durationData);
+
+		for (let index = 0; index < durationData.length; index++) {
+			const element = durationData[index];
+			if (element <= 0 || isNaN(element)) {
+				setConfidenceLevel("low");
+				return;
+			}
+		}
+
+		if (
+			durationData[1] >= durationData[2] &&
+			durationData[0] <= durationData[1]
+		) {
+			setConfidenceLevel("low");
+			return;
+		}
+
+		if (
+			durationData[0] >= durationData[1] &&
+			durationData[1] <= durationData[2]
+		) {
+			setConfidenceLevel("medium");
+			return;
+		}
+
+		if (
+			durationData[0] <= durationData[1] &&
+			durationData[1] <= durationData[2] &&
+			durationData[2] <= durationData[3]
+		) {
+			setConfidenceLevel("high");
+			return;
+		}
+	};
+
+	const processData = async () => {
 		setResponseSize(rawData.length);
 		console.log("setting raw data");
 		console.log("💙 analyzing data");
@@ -73,9 +117,45 @@ const PageSearch = (props) => {
 		}
 
 		setDurationData(getDecisionDatesStats(rawData));
-
 		console.log("❌ is loading to false ");
 		setIsDataLoading(false);
+	};
+
+	const chartsArray = [
+		{
+			chartType: "bar",
+			dataset: datasetAppState,
+			chartLabel: "Application State",
+			thresholdValueIndex: "",
+			labels: Options.appState(),
+		},
+		{
+			chartType: "bar",
+			dataset: datasetAppSize,
+			chartLabel: "Application Size",
+			thresholdValueIndex: "",
+			labels: Options.appSize(),
+		},
+		{
+			chartType: "bar",
+			dataset: datasetAppType,
+			chartLabel: "Application Type",
+			thresholdValueIndex: "",
+			labels: Options.appType(),
+		},
+		{
+			chartType: "bar",
+			dataset: durationData,
+			chartLabel: "Application Duration",
+			thresholdValueIndex: "",
+			labels: Options.duration(),
+		},
+	];
+
+	const confidenceLevelColor = {
+		low: "244,102,102",
+		medium: "229,131,38",
+		high: "31,197,148",
 	};
 
 	return (
@@ -86,36 +166,45 @@ const PageSearch = (props) => {
 			/>
 			<section className="chart">
 				<div className="chart__container">
-					<ChartApp
-						chartType="bar"
-						dataset={datasetAppState}
-						chartLabel="Application State"
-						labels={Options.appState()}
-					/>
-
-					<ChartApp
-						chartType="bar"
-						dataset={datasetAppSize}
-						chartLabel="Application Size"
-						labels={Options.appSize()}
-					/>
-
-					<ChartApp
-						chartType="bar"
-						dataset={datasetAppType}
-						chartLabel="Application Type"
-						labels={Options.appType()}
-					/>
-					<ChartApp
-						chartType="bar"
-						thresholdValueIndex="1"
-						chartLabel="Application Duration"
-						dataset={durationData}
-						labels={Options.duration()}
-					/>
+					{chartsArray.map((chartProps) => {
+						const { chartType, dataset, chartLabel, labels } = chartProps;
+						return (
+							<Paper
+								style={{
+									overflow: "auto",
+									border:
+										chartLabel === "Application Duration"
+											? `3px solid rgb(${confidenceLevelColor[confidenceLevel]})`
+											: "",
+									backgroundColor:
+										chartLabel === "Application Duration"
+											? `rgba(${confidenceLevelColor[confidenceLevel]},0.07)`
+											: "",
+								}}
+								shadow="md"
+								p="xs"
+								m="sm"
+								sx={{ margin: "0 auto" }}
+								withBorder
+							>
+								<Center>
+									<ChartApp
+										chartType={chartType}
+										dataset={dataset}
+										chartLabel={chartLabel}
+										labels={labels}
+									/>
+								</Center>
+							</Paper>
+						);
+					})}
 				</div>
 			</section>
-			<section>{rawData && <CardList rawData={rawData} />}</section>
+			<Accordion>
+				<Accordion.Item label="Detailed Applications List">
+					<section>{rawData && <CardList rawData={rawData} />}</section>
+				</Accordion.Item>
+			</Accordion>
 		</>
 	);
 };
