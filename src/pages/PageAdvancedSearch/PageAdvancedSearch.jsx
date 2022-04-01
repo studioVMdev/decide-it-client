@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import dayjs from "dayjs";
+// import { useAuthState } from "react-firebase-hooks/auth";
+
+// import dayjs from "dayjs";
 import "./PageAdvancedSearch.scss";
 import { Accordion, Paper, Center } from "@mantine/core";
 
@@ -168,7 +170,7 @@ const PageSearch = (props) => {
 			<FormSearch
 				setIsDataLoading={setIsDataLoading}
 				setRawData={setRawData}
-			/>
+      />
 			<section className="chart">
 				<div className="chart__container">
 					{chartsArray.map((chartProps) => {
@@ -207,7 +209,7 @@ const PageSearch = (props) => {
 					})}
 				</div>
 			</section>
-			<Accordion>
+			<Accordion p="sm">
 				<Accordion.Item
 					styles={{
 						content: { padding: 0 },

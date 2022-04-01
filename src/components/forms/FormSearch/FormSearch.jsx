@@ -16,11 +16,13 @@ import {
 
 import Options from "../../../utils/queryOptions.mjs";
 import { GET_QUERY_SEARCH } from "../../../utils/apiCalls.mjs";
+import SaveSearch from "../../SaveSearch/SaveSearch";
 import { auth } from "../../../firebase";
 
 const FormSearch = ({ setRawData, setIsDataLoading }) => {
 	const notifications = useNotifications();
 	const [responseSize, setResponseSize] = useState("");
+
 	const [authority, setAuthority] = useState("Merton");
 	const [appSize, setAppSize] = useState("Small");
 	const [appType, setAppType] = useState("Full");
@@ -28,7 +30,6 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 	const [resultsSize, setResultsSize] = useState(10);
 	const [searchedResultsSize, setSearchedResultsSize] = useState("");
 	const [searchTerms, setSearchTerms] = useState("");
-
 	//! This start date is always 12 months in the past
 	const [startDate, setStartDate] = useState(
 		dayjs(dayjs().subtract(12, "month")).format("YYYY-MM-DD")
@@ -37,6 +38,28 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 	const [endDate, setEndDate] = useState(
 		dayjs(dayjs().subtract(6, "month")).format("YYYY-MM-DD")
 	);
+
+	// const [searchParams, setSearchParams] = useState({
+	// 	auth: authority,
+	// 	app_size: appSize,
+	// 	app_type: appType,
+	// 	app_state: appState,
+	// 	pg_sz: resultsSize,
+	// 	start_date: startDate,
+	// 	end_date: endDate,
+	// 	search_terms: searchTerms,
+	// });
+
+	const searchParams = {
+		auth: authority,
+		app_size: appSize,
+		app_type: appType,
+		app_state: appState,
+		pg_sz: resultsSize,
+		start_date: startDate,
+		end_date: endDate,
+		search_terms: searchTerms,
+	};
 
 	const handleStartDateChange = (val) => {
 		const formattedDate = dayjs(val).format("YYYY-MM-DD");
@@ -51,7 +74,12 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 	};
 
 	const handleSubmit = async (e) => {
-		if (!authority || !startDate || !endDate) return;
+		if (
+			!authority ||
+			startDate === "Invalid Date" ||
+			endDate === "Invalid Date"
+		)
+			return;
 
 		notifications.hideNotification("networkErrorNotification");
 
@@ -178,14 +206,20 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 								style={{ display: "flex", flexDirection: "column" }}
 							>
 								<DatePicker
-									value={new Date(startDate)}
+									placeholder="Start Date"
+									defaultValue={new Date(startDate)}
+									required
+									error={startDate === "Invalid Date" ? true : false}
 									label="Start Date"
 									maxDate={new Date(endDate)}
 									onChange={handleStartDateChange}
 								/>
 
 								<DatePicker
-									value={new Date(endDate)}
+									placeholder="End Date"
+									defaultValue={new Date(endDate)}
+									required
+									error={endDate === "Invalid Date" ? true : false}
 									label="End Date"
 									minDate={new Date(startDate)}
 									onChange={handleEndDateChange}
@@ -201,9 +235,19 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 
 								<TextInput
 									clearable="true"
-									value={searchTerms}
+									value={searchTerms
+										.split("%20")
+										.join(" ")
+										.split("%22")
+										.join("")}
 									onChange={(event) =>
-										setSearchTerms(event.currentTarget.value)
+										setSearchTerms(
+											"%22" +
+												event.currentTarget.value
+													.split(" ")
+													.join("%20") +
+												"%22"
+										)
 									}
 									label="Search Keywords"
 									placeholder="Search Keywords"
@@ -216,6 +260,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 						</Button>
 					</div>
 				</form>
+				<SaveSearch searchParams={searchParams} />
 			</Paper>
 			<Divider
 				my="xs"

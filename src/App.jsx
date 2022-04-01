@@ -14,6 +14,7 @@ import Footer from "./components/Footer/Footer";
 import {
 	MantineProvider,
 	ColorSchemeProvider,
+	MantineThemeOverride,
 	ColorScheme,
 } from "@mantine/core";
 
@@ -21,6 +22,13 @@ const links = [
 	{ link: "simple-search", label: "simple" },
 	{ link: "advanced-search", label: "advanced" },
 ];
+
+const myTheme = {
+	colorScheme: "light",
+	primaryColor: "green",
+	defaultRadius: 6,
+};
+
 const App = () => {
 	const [colorScheme, setColorScheme] = useState("light");
 
@@ -34,6 +42,7 @@ const App = () => {
 		>
 			<MantineProvider
 				theme={{
+					...myTheme,
 					colorScheme: colorScheme,
 					breakpoints: {
 						xs: 500,
@@ -47,25 +56,31 @@ const App = () => {
 			>
 				<div className="App">
 					<Header />
-					<Routes>
-						<Route exact path="/dashboard" element={<Dashboard />} />
-						<Route exact path="/register" element={<Register />} />
-						<Route exact path="/reset" element={<Reset />} />
+					<div className="App__body">
+						<Routes>
+							<Route exact path="/dashboard" element={<Dashboard />} />
+							<Route exact path="/register" element={<Register />} />
+							<Route exact path="/reset" element={<Reset />} />
 
-						<Route exact path="/login" element={<PageLogin />} />
+							<Route exact path="/login" element={<PageLogin />} />
 
-						<Route path="/simple-search" element={<PageSimpleSearch />} />
-						<Route
-							path="/advanced-search"
-							element={<PageAdvancedSearch />}
-						/>
+							<Route
+								path="/simple-search"
+								element={<PageSimpleSearch />}
+							/>
+							<Route
+								path="/advanced-search"
+								element={<PageAdvancedSearch />}
+							/>
 
-						<Route
-							path="/"
-							exact
-							element={<Navigate to="simple-search" />}
-						/>
-					</Routes>
+							<Route
+								path="/"
+								exact
+								element={<Navigate to="simple-search" />}
+							/>
+						</Routes>
+					</div>
+
 					<Footer />
 				</div>
 			</MantineProvider>

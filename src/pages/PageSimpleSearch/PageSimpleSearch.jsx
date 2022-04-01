@@ -256,7 +256,9 @@ const PageSimpleSearch = () => {
 				labels={Options.duration()}
 			/>
 			<Accordion>
-				<Accordion.Item label="Detailed Applications List">
+				<Accordion.Item
+					label="Detailed Applications List"
+				>
 					{!isDataLoading && <CardList rawData={rawData} />}
 				</Accordion.Item>
 			</Accordion>

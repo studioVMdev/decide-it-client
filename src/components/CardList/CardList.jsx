@@ -17,15 +17,11 @@ const CardList = ({ rawData }) => {
 
 	return (
 		<>
-			{/* <Divider
-				my="xs"
-				label="Detailed Applications List"
-				labelPosition="center"
-			/> */}
-			{slicedData.map((appData) => {
-				return <CardApp key={appData.uid} appData={appData} />;
-			})}
+			{slicedData.map((appData) => (
+				<CardApp key={appData.uid} appData={appData} />
+			))}
 			<Pagination
+				p="sm"
 				page={activePage}
 				siblings={2}
 				onChange={setPage}
@@ -36,21 +32,3 @@ const CardList = ({ rawData }) => {
 };
 
 export default CardList;
-
-// import React from "react";
-// import "./CardList.scss";
-
-// import CardApp from "../cards/CardApp/CardApp";
-
-// const CardList = ({ rawData }) => {
-// 	return (
-// 		<>
-// 			<p>CardList </p>
-// 			{rawData.map((appData) => {
-// 				return <CardApp key={appData.uid} appData={appData} />;
-// 			})}
-// 		</>
-// 	);
-// };
-
-// export default CardList;

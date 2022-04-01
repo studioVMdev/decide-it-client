@@ -7,26 +7,10 @@ import { MantineProvider } from "@mantine/core";
 ReactDOM.render(
 	<React.StrictMode>
 		<Router>
-			{/* <Header /> */}
 			<NotificationsProvider>
-				<MantineProvider
-					theme={{
-						colorScheme: "dark",
-						breakpoints: {
-							xs: 500,
-							sm: 800,
-							md: 1000,
-							lg: 1200,
-							xl: 1400,
-						},
-					}}
-					withGlobalStyles
-				>
-					<App />
-				</MantineProvider>
+				<App />
 			</NotificationsProvider>
 		</Router>
-		{/* <Footer/> */}
 	</React.StrictMode>,
 	document.getElementById("root")
 );

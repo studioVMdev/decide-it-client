@@ -6,12 +6,15 @@ import {
 	useMantineColorScheme,
 	ActionIcon,
 	Paper,
+	ThemeIcon,
+	useMantineTheme,
 } from "@mantine/core";
 import { Sun, MoonStars } from "tabler-icons-react";
 
 import { NavLink, Link } from "react-router-dom";
 
 const Header = () => {
+	const theme = useMantineTheme();
 	const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 	const dark = colorScheme === "dark";
 
@@ -32,9 +35,6 @@ const Header = () => {
 							size="xs"
 							component={Link}
 							to={link.link}
-							// className={({ isActive }) =>
-							// 	isActive ? "active" : "inactive"
-							// }
 						>
 							{link.label}
 						</Button>
