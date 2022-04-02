@@ -2,7 +2,15 @@
 
 .form{
 
-&__group-wrapper{
+&__group-wrapper-outer{
+  // border: 1px solid red;
+
+  &>*{
+    width: 100%;
+  }
+}
+
+&__group-wrapper-inner{
   // border: 1px solid red;
 
   &>*{

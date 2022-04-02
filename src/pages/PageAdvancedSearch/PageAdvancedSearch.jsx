@@ -1,19 +1,15 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-// import { useAuthState } from "react-firebase-hooks/auth";
-
-// import dayjs from "dayjs";
+import React, { useState, useEffect } from "react";
 import "./PageAdvancedSearch.scss";
 import { Accordion, Paper, Center } from "@mantine/core";
 
 import FormSearch from "../../components/forms/FormSearch/FormSearch";
-import Options from "../../utils/queryOptions.mjs";
-import ChartApp from "../../components/charts/ChartApp";
-import getDecisionDatesStats from "../../utils/decisionDatesStats.mjs";
 import CardList from "../../components/CardList/CardList";
+import ChartApp from "../../components/charts/ChartApp";
+import Options from "../../utils/queryOptions.mjs";
+import getDecisionDatesStats from "../../utils/decisionDatesStats.mjs";
+import getConfidenceLevel from "../../utils/getConfidenceLevel.mjs";
 
-const PageSearch = (props) => {
-	// console.log(props)
+const PageSearch = () => {
 	const [isDataLoading, setIsDataLoading] = useState("");
 	const [rawData, setRawData] = useState("");
 	const [datasetAppType, setDatasetAppType] = useState("");
@@ -29,57 +25,12 @@ const PageSearch = (props) => {
 	}, [rawData]);
 
 	useEffect(() => {
-		durationData && getConfidenceLevel();
+		durationData && setConfidenceLevel(getConfidenceLevel(durationData));
 	}, [durationData]);
-
-	const getConfidenceLevel = () => {
-		console.log("assessing confidence level");
-		console.log(durationData);
-
-		for (let index = 0; index < durationData.length; index++) {
-			const element = durationData[index];
-			if (element <= 0 || isNaN(element)) {
-				setConfidenceLevel("low");
-				return;
-			}
-		}
-
-		if (durationData[0] > durationData[1]) {
-			setConfidenceLevel("low");
-			return;
-		}
-
-		if (
-			durationData[0] >= durationData[1] &&
-			durationData[1] <= durationData[2]
-		) {
-			setConfidenceLevel("medium");
-			return;
-		}
-
-		if (
-			durationData[0] <= durationData[1] &&
-			durationData[1] >= durationData[2]
-		) {
-			setConfidenceLevel("medium");
-			return;
-		}
-
-		if (
-			durationData[0] <= durationData[1] &&
-			durationData[1] <= durationData[2] &&
-			durationData[2] <= durationData[3]
-		) {
-			setConfidenceLevel("high");
-			return;
-		}
-	};
 
 	const processData = async () => {
 		setResponseSize(rawData.length);
-		console.log("setting raw data");
-		console.log("💙 analyzing data");
-
+		console.log("💙 processing data");
 		try {
 			const labels = Options.appType();
 			const tempDatasetAppType = [];
@@ -122,9 +73,7 @@ const PageSearch = (props) => {
 		} catch (e) {
 			console.log(e);
 		}
-
 		setDurationData(getDecisionDatesStats(rawData));
-		console.log("❌ is loading to false ");
 		setIsDataLoading(false);
 	};
 
@@ -170,7 +119,7 @@ const PageSearch = (props) => {
 			<FormSearch
 				setIsDataLoading={setIsDataLoading}
 				setRawData={setRawData}
-      />
+			/>
 			<section className="chart">
 				<div className="chart__container">
 					{chartsArray.map((chartProps) => {

@@ -16,8 +16,9 @@ const getDecisionDatesStats = (rawData) => {
 
 		registrationDuration +=
 			date_validated.diff(date_received, "day") / rawData.length || 0;
-		decisionTarget +=
-			target_decision_date.diff(date_validated, "day") / rawData.length || 0;
+		decisionTarget += app.other_fields.target_decision_date
+			? target_decision_date.diff(date_validated, "day") / rawData.length
+			: 0;
 		decisionDuration +=
 			decided_date.diff(date_validated, "day") / rawData.length || 0;
 		totalDuration +=

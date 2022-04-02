@@ -5,19 +5,11 @@ import { Divider, SimpleGrid, Paper, Group } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import dayjs from "dayjs";
 import { Search } from "tabler-icons-react";
-import {
-	TextInput,
-	NumberInput,
-	Select,
-	Button,
-	InputWrapper,
-	Box,
-} from "@mantine/core";
+import { TextInput, NumberInput, Select, Button, Box } from "@mantine/core";
 
 import Options from "../../../utils/queryOptions.mjs";
 import { GET_QUERY_SEARCH } from "../../../utils/apiCalls.mjs";
 import SaveSearch from "../../SaveSearch/SaveSearch";
-import { auth } from "../../../firebase";
 
 const FormSearch = ({ setRawData, setIsDataLoading }) => {
 	const notifications = useNotifications();
@@ -61,6 +53,27 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 		search_terms: searchTerms,
 	};
 
+	const populateForm = (savedParams) => {
+		const {
+			auth,
+			app_size,
+			app_type,
+			app_state,
+			pg_sz,
+			start_date,
+			end_date,
+			search_terms,
+		} = savedParams;
+		setAuthority(auth);
+		setAppSize(app_size);
+		setAppType(app_type);
+		setAppState(app_state);
+		setResultsSize(pg_sz);
+		setStartDate(start_date);
+		setEndDate(end_date);
+		setSearchTerms(search_terms);
+	};
+
 	const handleStartDateChange = (val) => {
 		const formattedDate = dayjs(val).format("YYYY-MM-DD");
 		setStartDate(formattedDate);
@@ -82,8 +95,6 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 			return;
 
 		notifications.hideNotification("networkErrorNotification");
-
-		console.log("✔ is loading to true ");
 		setRawData("");
 		setIsDataLoading(true);
 
@@ -95,7 +106,6 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 			autoClose: 30000,
 			loading: true,
 		});
-
 		console.log("scraping data....");
 
 		try {
@@ -147,112 +157,133 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 							spacing="xs"
 							breakpoints={[{ maxWidth: 500, cols: 1, spacing: "xs" }]}
 						>
-							<Group
-								className="form__group-wrapper"
-								spacing="md"
-								sx={{ flexDirection: "column" }}
+							<SimpleGrid
+								cols={2}
+								spacing="xs"
+								breakpoints={[
+									{ maxWidth: 900, cols: 1, spacing: "xs" },
+								]}
 							>
-								{/* <InputWrapper
-									id="input-authority"
-									required={true}
-									// label="Local Authority Required"
-									// description="Please select a local authority"
-									error={!authority ? "This field is required" : ""}
-								> */}
-								<Select
-									error={!authority ? true : false}
-									clearable="true"
-									searchable
-									required
-									value={authority}
-									onChange={setAuthority}
-									label="Local Authority"
-									placeholder="Local Authority"
-									data={Options.authority()}
-								/>
-								{/* </InputWrapper> */}
+								<Group
+									className="form__group-wrapper-inner"
+									spacing="md"
+									sx={{ flexDirection: "column" }}
+								>
+									<Select
+										error={!authority ? true : false}
+										clearable="true"
+										searchable
+										required
+										value={authority}
+										onChange={setAuthority}
+										label="Local Authority"
+										placeholder="Local Authority"
+										data={Options.authority()}
+									/>
 
-								<Select
-									clearable="true"
-									value={appSize}
-									onChange={setAppSize}
-									label="Application Size"
-									placeholder="Application Size"
-									data={Options.appSize()}
-								/>
+									<Select
+										clearable="true"
+										value={appSize}
+										onChange={setAppSize}
+										label="Application Size"
+										placeholder="Application Size"
+										data={Options.appSize()}
+									/>
+								</Group>
+								<Group
+									className="form__group-wrapper-inner"
+									spacing="md"
+									sx={{ flexDirection: "column" }}
+								>
+									<Select
+										clearable="true"
+										value={appType}
+										onChange={setAppType}
+										label="Application Type"
+										placeholder="Application Type"
+										data={Options.appType()}
+									/>
 
-								<Select
-									clearable="true"
-									value={appType}
-									onChange={setAppType}
-									label="Application Type"
-									placeholder="Application Type"
-									data={Options.appType()}
-								/>
+									<Select
+										clearable="true"
+										value={appState}
+										onChange={setAppState}
+										label="Application State"
+										placeholder="Application State"
+										data={Options.appState()}
+									/>
+								</Group>
+							</SimpleGrid>
 
-								<Select
-									clearable="true"
-									value={appState}
-									onChange={setAppState}
-									label="Application State"
-									placeholder="Application State"
-									data={Options.appState()}
-								/>
-							</Group>
-
-							<Group
-								className="form__group-wrapper"
-								spacing="md"
-								style={{ display: "flex", flexDirection: "column" }}
+							<SimpleGrid
+								cols={2}
+								spacing="xs"
+								breakpoints={[
+									{ maxWidth: 900, cols: 1, spacing: "xs" },
+								]}
 							>
-								<DatePicker
-									placeholder="Start Date"
-									defaultValue={new Date(startDate)}
-									required
-									error={startDate === "Invalid Date" ? true : false}
-									label="Start Date"
-									maxDate={new Date(endDate)}
-									onChange={handleStartDateChange}
-								/>
+								<Group
+									className="form__group-wrapper-inner"
+									spacing="md"
+									sx={{ flexDirection: "column" }}
+								>
+									<DatePicker
+										placeholder="Start Date"
+										defaultValue={new Date(startDate)}
+										required
+										error={
+											startDate === "Invalid Date" ? true : false
+										}
+										label="Start Date"
+										maxDate={new Date(endDate)}
+										onChange={handleStartDateChange}
+									/>
 
-								<DatePicker
-									placeholder="End Date"
-									defaultValue={new Date(endDate)}
-									required
-									error={endDate === "Invalid Date" ? true : false}
-									label="End Date"
-									minDate={new Date(startDate)}
-									onChange={handleEndDateChange}
-								/>
+									<DatePicker
+										placeholder="End Date"
+										defaultValue={new Date(endDate)}
+										required
+										error={endDate === "Invalid Date" ? true : false}
+										label="End Date"
+										minDate={new Date(startDate)}
+										onChange={handleEndDateChange}
+									/>
+								</Group>
 
-								<NumberInput
-									min={10}
-									value={resultsSize}
-									label="Number of Applications"
-									placeholder="Number of Applications"
-									onChange={(val) => setResultsSize(val)}
-								/>
+								<Group
+									className="form__group-wrapper-inner"
+									spacing="md"
+									sx={{ flexDirection: "column" }}
+								>
+									<NumberInput
+										min={10}
+										value={resultsSize}
+										label="Number of Applications"
+										placeholder="Number of Applications"
+										onChange={(val) => setResultsSize(val)}
+									/>
 
-								<TextInput
-									clearable="true"
-									value={searchTerms
-										.split("%20")
-										.join(" ")
-										.split("%22")
-										.join("")}
-									onChange={(event) =>
-										setSearchTerms(
-											"%22" +
-												event.currentTarget.value
-													.split(" ")
-													.join("%20") +
-												"%22"
-										)
-									}
-									label="Search Keywords"
-									placeholder="Search Keywords"
-								/>
-							</Group>
+									<TextInput
+										clearable="true"
+										value={searchTerms
+											.split("%20")
+											.join(" ")
+											.split("%22")
+											.join("")}
+										onChange={(event) =>
+											setSearchTerms(
+												"%22" +
+													event.currentTarget.value
+														.split(" ")
+														.join("%20") +
+													"%22"
+											)
+										}
+										label="Search Keywords"
+										placeholder="Search Keywords"
+									/>
+								</Group>
+							</SimpleGrid>
 						</SimpleGrid>
 
 						<Button mt={20} fullWidth onClick={handleSubmit}>
@@ -260,7 +291,10 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 						</Button>
 					</div>
 				</form>
-				<SaveSearch searchParams={searchParams} />
+				<SaveSearch
+					searchParams={searchParams}
+					populateForm={populateForm}
+				/>
 			</Paper>
 			<Divider
 				my="xs"
