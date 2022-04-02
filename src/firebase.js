@@ -102,9 +102,11 @@ const getSavedSearchList = async (userId) => {
 	const querySnapshot = await getDocs(
 		collection(db, `users/${userId}/searches`)
 	);
+
 	querySnapshot.forEach((doc) => {
 		// doc.data() is never undefined for query doc snapshots
-		console.log(doc.id, " => ", doc.data());
+		// console.log(doc.id, " => ", doc.data());
+		console.log(doc.id);
 	});
 };
 
@@ -126,8 +128,10 @@ const getSavedSearch = async (userId, searchName) => {
 
 const setSavedSearch = async (userId, searchName, searchParams) => {
 	try {
-		console.log("setting", searchName, searchParams);
-
+		console.log("setting", searchName, {
+			// search_name: searchName,
+			...searchParams,
+		});
 		await setDoc(
 			doc(db, `users/${userId}/searches`, searchName),
 			searchParams

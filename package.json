@@ -1,6 +1,9 @@
 {
   "name": "decide-it-client",
   "version": "0.1.0",
+  "engines": {
+    "node": "14.15.0"
+  },
   "description": "application that helps architects and construction industry professionals make decisions regarding planning application timelines",
   "main": "index.js",
   "dependencies": {
@@ -38,9 +41,7 @@
     "type": "git",
     "url": "git+https://github.com/studioVMdev/decide-it-client.git"
   },
-  "keywords": [
-    "react"
-  ],
+  "keywords": ["react"],
   "author": "Valentin Manaila",
   "license": "MIT",
   "bugs": {
@@ -48,17 +49,10 @@
   },
   "private": true,
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": ["react-app", "react-app/jest"]
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",

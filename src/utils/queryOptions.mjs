@@ -42,21 +42,40 @@ export default class Options {
 	}
 
 	static authority() {
-		return [
+    return [
+			"Barking+and+Dagenham",
 			"Barnet",
+			"Bexley",
+			"Brent",
 			"Bromley",
 			"Camden",
-			"Hackney",
+			"City",
+			"Croydon",
+			"Ealing",
+			"Enfield",
 			"Greenwich",
+			"Hackney",
+			"Hammersmith+and+Fulham",
+			"Haringey",
+			"Harrow",
+			"Havering",
+			"Hillingdon",
+			"Hounslow",
 			"Islington",
 			"Kensington",
 			"Kingston",
-			"Merton",
 			"Lambeth",
+			"Lewisham",
+			"Merton",
 			"Newham",
+			"Redbridge",
+			"Richmond",
 			"Southwark",
-			"Westminster",
+			"Sutton",
 			"Tower+Hamlets",
+			"Waltham+Forest",
+			"Wandsworth",
+			"Westminster",
 		];
 	}
 }

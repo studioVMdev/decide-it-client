@@ -24,6 +24,8 @@ const SaveSearch = ({ searchParams }) => {
 				/>
 				<Button
 					mt={5}
+					variant="outline"
+
 					color="blue"
 					fullWidth
 					onClick={() => {
@@ -35,6 +37,8 @@ const SaveSearch = ({ searchParams }) => {
 				</Button>
 				<Button
 					mt={5}
+					variant="outline"
+
 					color="lime"
 					fullWidth
 					onClick={() => {
@@ -46,6 +50,8 @@ const SaveSearch = ({ searchParams }) => {
 					Get
 				</Button>
 				<Button
+					variant="outline"
+
 					mt={5}
 					color="grape"
 					fullWidth
@@ -59,6 +65,7 @@ const SaveSearch = ({ searchParams }) => {
 				</Button>
 				<Button
 					mt={5}
+					variant="outline"
 					color="red"
 					fullWidth
 					onClick={() => {

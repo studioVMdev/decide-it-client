@@ -25,7 +25,7 @@ const links = [
 
 const myTheme = {
 	colorScheme: "light",
-	primaryColor: "green",
+	primaryColor: "cyan",
 	defaultRadius: 6,
 };
 
