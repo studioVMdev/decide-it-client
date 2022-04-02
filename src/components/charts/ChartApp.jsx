@@ -5,6 +5,8 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 
 import {
 	Chart as ChartJS,
+	LineController,
+	BarController,
 	CategoryScale,
 	LinearScale,
 	BarElement,
@@ -19,6 +21,8 @@ import { Chart } from "react-chartjs-2";
 
 ChartJS.register(
 	ChartDataLabels,
+	LineController,
+	BarController,
 	CategoryScale,
 	LinearScale,
 	BarElement,
