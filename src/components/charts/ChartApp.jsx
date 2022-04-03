@@ -39,7 +39,7 @@ const ChartApp = ({
 	labels,
 	chartLabel,
 	chartType,
-	thresholdValueIndex = null,
+	// thresholdValueIndex = null,
 }) => {
 	// let thresholdHighArray = null;
 	// if (thresholdValueIndex) {
@@ -97,30 +97,39 @@ const ChartApp = ({
 		},
 		scales: {
 			y: {
-				grid: {
-					borderColor: "slategrey",
-					// drawBorder: true,
-					// display: true,
-					// drawOnChartArea: true,
-					// drawTicks: false,
-					borderDash: [2, 2],
-					color: "slategrey",
-					color: "lightgrey",
-				},
+				beginAtZero: true,
 				ticks: {
-					suggestedMin: 0,
-					suggestedMax: 500,
-					beginAtZero: true,
-					padding: 10,
-					font: {
-						// size: 14,
-						// weight: 300,
-						// family: "Roboto",
-						// style: "normal",
-						// lineHeight: 2,
-					},
-					color: "slategrey",
+					display: false,
 				},
+				grid: {
+					display: false,
+					drawTicks: false,
+					// drawOnChartArea: false,
+				},
+				// grid: {
+				// 	// borderColor: "slategrey",
+				// 	// drawBorder: true,
+				// 	// display: true,
+				// 	// drawOnChartArea: true,
+				// 	// drawTicks: false,
+				// 	borderDash: [2, 2],
+				// 	// color: "slategrey",
+				// 	// color: "lightgrey",
+				// },
+				// ticks: {
+				// 	suggestedMin: 0,
+				// 	suggestedMax: 500,
+				// 	beginAtZero: true,
+				// 	padding: 10,
+				// 	font: {
+				// 		// size: 14,
+				// 		// weight: 300,
+				// 		// family: "Roboto",
+				// 		// style: "normal",
+				// 		// lineHeight: 2,
+				// 	},
+				// 	color: "slategrey",
+				// },
 			},
 			x: {
 				grid: {
@@ -129,9 +138,9 @@ const ChartApp = ({
 					display: true,
 					drawOnChartArea: true,
 					drawTicks: false,
-					borderDash: [2, 2],
-					color: "slategrey",
-					color: "lightgrey",
+					borderDash: [5, 5],
+					// color: "slategrey",
+					// color: "lightgrey",
 				},
 				ticks: {
 					display: true,
