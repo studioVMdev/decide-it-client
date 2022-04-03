@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from "react";
 import "./PageAdvancedSearch.scss";
-import { Accordion, Paper, Center } from "@mantine/core";
+import { useColorScheme } from "@mantine/hooks";
+import { Accordion, Paper, Center, useMantineTheme } from "@mantine/core";
 
 import FormSearch from "../../components/forms/FormSearch/FormSearch";
 import CardList from "../../components/CardList/CardList";
 import ChartApp from "../../components/charts/ChartApp";
+import CardResults from "../../components/cards/CardResults/CardResults";
 import Options from "../../utils/queryOptions.mjs";
 import getDecisionDatesStats from "../../utils/decisionDatesStats.mjs";
 import getConfidenceLevel from "../../utils/getConfidenceLevel.mjs";
 
 const PageSearch = () => {
+	const colorScheme = useColorScheme();
+	const theme = useMantineTheme();
+
 	const [isDataLoading, setIsDataLoading] = useState("");
 	const [rawData, setRawData] = useState("");
+
 	const [datasetAppType, setDatasetAppType] = useState("");
 	const [datasetAppState, setDatasetAppState] = useState("");
 	const [datasetAppSize, setDatasetAppSize] = useState("");
+	const [requestSize, setRequestSize] = useState("");
 	const [responseSize, setResponseSize] = useState("");
 
 	const [durationData, setDurationData] = useState("");
@@ -88,6 +95,13 @@ const PageSearch = () => {
 	const chartsArray = [
 		{
 			chartType: "bar",
+			dataset: durationData,
+			chartLabel: "Decision Duration/ Days",
+			thresholdValueIndex: "",
+			labels: Options.duration(),
+		},
+		{
+			chartType: "bar",
 			dataset: datasetAppState,
 			chartLabel: "Application State",
 			thresholdValueIndex: "",
@@ -107,19 +121,12 @@ const PageSearch = () => {
 			thresholdValueIndex: "",
 			labels: Options.appType(),
 		},
-		{
-			chartType: "bar",
-			dataset: durationData,
-			chartLabel: "Decision Duration/ Days",
-			thresholdValueIndex: "",
-			labels: Options.duration(),
-		},
 	];
 
 	const confidenceLevelColor = {
-		low: "244,102,102",
-		medium: "229,131,38",
-		high: "31,197,148",
+		low: "red",
+		medium: "orange",
+		high: "green",
 	};
 
 	return (
@@ -127,7 +134,17 @@ const PageSearch = () => {
 			<FormSearch
 				setRawData={setRawData}
 				setIsDataLoading={setIsDataLoading}
+				setResponseSize={setResponseSize}
+				setRequestSize={setRequestSize}
 			/>
+			<CardResults
+				confidenceLevel={confidenceLevel}
+				requestSize={requestSize}
+				responseSize={responseSize}
+				confidenceLevelColor={confidenceLevelColor[confidenceLevel]}
+				durationData={durationData}
+			/>
+
 			<section className="chart">
 				<div className="chart__container">
 					{chartsArray.map((chartProps) => {
@@ -138,13 +155,14 @@ const PageSearch = () => {
 								style={{
 									overflow: "auto",
 									border:
-										chartLabel === "Decision Duration/ Days"
-											? `3px solid rgb(${confidenceLevelColor[confidenceLevel]})`
-											: "",
-									backgroundColor:
-										chartLabel === "Decision Duration/ Days"
-											? `rgba(${confidenceLevelColor[confidenceLevel]},0.07)`
-											: "",
+										chartLabel === "Decision Duration/ Days" &&
+										(confidenceLevel
+											? `2px solid ${
+													theme.colors[
+														confidenceLevelColor[confidenceLevel]
+													][9]
+											  }`
+											: ""),
 								}}
 								shadow="md"
 								p="xs"
@@ -171,7 +189,7 @@ const PageSearch = () => {
 						content: { padding: 0 },
 						contentInner: { padding: 0 },
 					}}
-					label="Detailed Applications List"
+					label={"Detailed List: " + responseSize + " Applications"}
 				>
 					{rawData && <CardList rawData={rawData} />}
 				</Accordion.Item>

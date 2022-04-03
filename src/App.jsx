@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.scss";
 import PageSimpleSearch from "./pages/PageSimpleSearch/PageSimpleSearch";
 import PageAdvancedSearch from "./pages/PageAdvancedSearch/PageAdvancedSearch";
+
 import Dashboard from "./components/Dashboard/Dashboard";
 import Register from "./components/Register/Register";
 import Reset from "./components/Reset/Reset";
@@ -31,7 +32,6 @@ const myTheme = {
 
 const App = () => {
 	const [colorScheme, setColorScheme] = useState("light");
-
 	const toggleColorScheme = (value) =>
 		setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 

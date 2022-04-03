@@ -9,6 +9,7 @@ import {
 	ActionIcon,
 	Paper,
 	Avatar,
+	Text,
 	Container,
 	Box,
 	SimpleGrid,
@@ -19,16 +20,16 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 // import { onAuthStateChanged } from "firebase/auth";
 import { auth, db, logout } from "../../firebase";
-import {
-	query,
-	collection,
-	getDocs,
-	getDoc,
-	where,
-	doc,
-	setDoc,
-	serverTimestamp,
-} from "firebase/firestore";
+// import {
+// 	query,
+// 	collection,
+// 	getDocs,
+// 	getDoc,
+// 	where,
+// 	doc,
+// 	setDoc,
+// 	serverTimestamp,
+// } from "firebase/firestore";
 
 const Header = () => {
 	const [user, loading, error] = useAuthState(auth);
@@ -94,7 +95,24 @@ const Header = () => {
 				>
 					<Group>
 						<MapSearch color={dark ? "lightgrey" : "slategrey"} />
-
+						<Box
+							sx={(theme) => ({
+								display: "flex",
+								justifyContent: "space-between",
+							})}
+						>
+							<Text color={dark ? "lime" : "lime"} m={0}>
+								plan
+							</Text>
+							<Text weight={700} color={dark ? "cyan" : "cyan"} m={0}>
+								in
+							</Text>
+							<Text weight={700} color={dark ? "cyan" : "cyan"} m={0}>
+								SIGHT
+							</Text>
+						</Box>
+					</Group>
+					<Group>
 						{links.map((link) => (
 							// 	<Button
 							// 		key={link.label}
@@ -113,6 +131,7 @@ const Header = () => {
 							// 		{link.label}
 							// 	</Button>
 							// ))}
+
 							<Button
 								key={link.label}
 								variant={link.variant}

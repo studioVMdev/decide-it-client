@@ -67,7 +67,8 @@ export default class Options {
 			"Lambeth",
 			"Lewisham",
 			"Merton",
-			"Newham",
+			//! Newham does not reterive results
+			// "Newham",
 			"Redbridge",
 			"Richmond",
 			"Southwark",

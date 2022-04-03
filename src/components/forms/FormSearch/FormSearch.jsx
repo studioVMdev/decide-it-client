@@ -15,18 +15,25 @@ import Options from "../../../utils/queryOptions.mjs";
 import { GET_QUERY_SEARCH } from "../../../utils/apiCalls.mjs";
 import SaveSearch from "../../SaveSearch/SaveSearch";
 
-const FormSearch = ({ setRawData, setIsDataLoading }) => {
+const FormSearch = ({
+	setRawData,
+	setIsDataLoading,
+	setRequestSize,
+	// setResponseSize,
+}) => {
 	const [user, loading, error] = useAuthState(auth);
 
 	const notifications = useNotifications();
-	const [responseSize, setResponseSize] = useState("Merton");
+	const [responseSize, setResponseSize] = useState("");
 
 	const [authority, setAuthority] = useState("Merton");
 	const [appSize, setAppSize] = useState("Small");
 	const [appType, setAppType] = useState("Full");
 	const [appState, setAppState] = useState("");
-	const [resultsSize, setResultsSize] = useState(10);
-	const [searchedResultsSize, setSearchedResultsSize] = useState("");
+	const [sampleSize, setSampleSize] = useState(10);
+	// const [resultsSize, setResultsSize] = useState("");
+
+	// const [searchedResultsSize, setSearchedResultsSize] = useState("");
 	const [searchTerms, setSearchTerms] = useState("");
 	//* This start date is always 12 months in the past
 	const [startDate, setStartDate] = useState(
@@ -42,7 +49,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 		app_size: appSize,
 		app_type: appType,
 		app_state: appState,
-		pg_sz: resultsSize,
+		pg_sz: sampleSize,
 		start_date: startDate,
 		end_date: endDate,
 		search_terms: searchTerms,
@@ -63,7 +70,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 		setAppSize(app_size);
 		setAppType(app_type);
 		setAppState(app_state);
-		setResultsSize(pg_sz);
+		setSampleSize(pg_sz);
 		setStartDate(start_date);
 		setEndDate(end_date);
 		setSearchTerms(search_terms);
@@ -110,7 +117,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 				appState,
 				appSize,
 				searchTerms,
-				resultsSize,
+				sampleSize,
 				startDate,
 				endDate
 			);
@@ -118,7 +125,8 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 			// console.log(response.data.records);
 			setRawData(response.data.records);
 			setResponseSize(response.data.records.length);
-			setSearchedResultsSize(resultsSize);
+			// setSearchedResultsSize(resultsSize);
+			setRequestSize(sampleSize);
 			notifications.hideNotification("fetchingNotification");
 
 			response.status === 400 && console.log(response.data.error);
@@ -252,10 +260,10 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 								>
 									<NumberInput
 										min={10}
-										value={resultsSize}
-										label="Number of Applications"
-										placeholder="Number of Applications"
-										onChange={(val) => setResultsSize(val)}
+										value={sampleSize}
+										label="Sample Size"
+										placeholder="Sample Size"
+										onChange={(val) => setSampleSize(val)}
 									/>
 
 									<TextInput
@@ -267,11 +275,13 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 											.join("")}
 										onChange={(event) =>
 											setSearchTerms(
-												"%22" +
-													event.currentTarget.value
-														.split(" ")
-														.join("%20") +
-													"%22"
+												event.currentTarget.value
+													? "%22" +
+															event.currentTarget.value
+																.split(" ")
+																.join("%20") +
+															"%22"
+													: ""
 											)
 										}
 										label="Search Keywords"
@@ -293,7 +303,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 					/>
 				)}
 			</Paper>
-			<Divider
+			{/* <Divider
 				my="xs"
 				variant="dashed"
 				labelPosition="center"
@@ -303,11 +313,7 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 						<Box ml={5}>Search results</Box>
 					</>
 				}
-			/>
-			<h2 className="total-results">
-				{responseSize &&
-					`Retrieved ${responseSize} out of ${searchedResultsSize} requested applications.`}
-			</h2>
+			/> */}
 		</>
 	);
 };
