@@ -1,6 +1,6 @@
 const getConfidenceLevel = (durationData) => {
 	console.log("assessing confidence level");
-	console.log(durationData);
+	// console.log(durationData);
 
 	for (let index = 0; index < durationData.length; index++) {
 		const element = durationData[index];

@@ -70,6 +70,14 @@ const PageSearch = () => {
 				tempDatasetAppSize.push(labelValueCount.length);
 			});
 			setDatasetAppSize(tempDatasetAppSize);
+
+			// setDatasetAppSize(
+			// 	Options.appSize().map((label) => {
+			// 		return rawData.filter((record) => {
+			// 			return record.app_size === label;
+			// 		});
+			// 	})
+			// );
 		} catch (e) {
 			console.log(e);
 		}
@@ -117,8 +125,8 @@ const PageSearch = () => {
 	return (
 		<>
 			<FormSearch
-				setIsDataLoading={setIsDataLoading}
 				setRawData={setRawData}
+				setIsDataLoading={setIsDataLoading}
 			/>
 			<section className="chart">
 				<div className="chart__container">
@@ -128,7 +136,6 @@ const PageSearch = () => {
 							<Paper
 								key={chartLabel}
 								style={{
-									zIndex: "-1",
 									overflow: "auto",
 									border:
 										chartLabel === "Decision Duration/ Days"

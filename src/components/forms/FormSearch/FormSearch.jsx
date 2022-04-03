@@ -6,14 +6,20 @@ import { DatePicker } from "@mantine/dates";
 import dayjs from "dayjs";
 import { Search } from "tabler-icons-react";
 import { TextInput, NumberInput, Select, Button, Box } from "@mantine/core";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db, logout } from "../../../firebase";
+
+// import { getAuth } from "firebase/auth";
 
 import Options from "../../../utils/queryOptions.mjs";
 import { GET_QUERY_SEARCH } from "../../../utils/apiCalls.mjs";
 import SaveSearch from "../../SaveSearch/SaveSearch";
 
 const FormSearch = ({ setRawData, setIsDataLoading }) => {
+	const [user, loading, error] = useAuthState(auth);
+
 	const notifications = useNotifications();
-	const [responseSize, setResponseSize] = useState("");
+	const [responseSize, setResponseSize] = useState("Merton");
 
 	const [authority, setAuthority] = useState("Merton");
 	const [appSize, setAppSize] = useState("Small");
@@ -22,25 +28,14 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 	const [resultsSize, setResultsSize] = useState(10);
 	const [searchedResultsSize, setSearchedResultsSize] = useState("");
 	const [searchTerms, setSearchTerms] = useState("");
-	//! This start date is always 12 months in the past
+	//* This start date is always 12 months in the past
 	const [startDate, setStartDate] = useState(
 		dayjs(dayjs().subtract(12, "month")).format("YYYY-MM-DD")
 	);
-	//! This end date is always 6 months in the past
+	//* This end date is always 6 months in the past
 	const [endDate, setEndDate] = useState(
 		dayjs(dayjs().subtract(6, "month")).format("YYYY-MM-DD")
 	);
-
-	// const [searchParams, setSearchParams] = useState({
-	// 	auth: authority,
-	// 	app_size: appSize,
-	// 	app_type: appType,
-	// 	app_state: appState,
-	// 	pg_sz: resultsSize,
-	// 	start_date: startDate,
-	// 	end_date: endDate,
-	// 	search_terms: searchTerms,
-	// });
 
 	const searchParams = {
 		auth: authority,
@@ -77,13 +72,13 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 	const handleStartDateChange = (val) => {
 		const formattedDate = dayjs(val).format("YYYY-MM-DD");
 		setStartDate(formattedDate);
-		console.log(startDate);
+		// console.log(startDate);
 	};
 
 	const handleEndDateChange = (val) => {
 		const formattedDate = dayjs(val).format("YYYY-MM-DD");
 		setEndDate(formattedDate);
-		console.log(endDate);
+		// console.log(endDate);
 	};
 
 	const handleSubmit = async (e) => {
@@ -119,8 +114,8 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 				startDate,
 				endDate
 			);
-			console.log("setting raw data");
-			console.log(response.data.records);
+			// console.log("setting raw data");
+			// console.log(response.data.records);
 			setRawData(response.data.records);
 			setResponseSize(response.data.records.length);
 			setSearchedResultsSize(resultsSize);
@@ -291,10 +286,12 @@ const FormSearch = ({ setRawData, setIsDataLoading }) => {
 						</Button>
 					</div>
 				</form>
-				<SaveSearch
-					searchParams={searchParams}
-					populateForm={populateForm}
-				/>
+				{user && (
+					<SaveSearch
+						searchParams={searchParams}
+						populateForm={populateForm}
+					/>
+				)}
 			</Paper>
 			<Divider
 				my="xs"

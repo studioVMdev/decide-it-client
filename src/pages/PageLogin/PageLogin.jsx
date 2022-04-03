@@ -18,12 +18,12 @@ function PageLogin() {
 			// maybe trigger a loading screen
 			return;
 		}
-		if (user) navigate("/dashboard");
+		if (user) navigate("/advanced-search");
 	}, [user, loading]);
 	return (
 		<div className="login">
 			<div className="login__container">
-				<input
+				{/* <input
 					type="text"
 					className="login__textBox"
 					value={email}
@@ -42,19 +42,19 @@ function PageLogin() {
 					onClick={() => signInWithEmailAndPassword(email, password)}
 				>
 					Login
-				</button>
+				</button> */}
 				<button
 					className="login__btn login__google"
 					onClick={signInWithGoogle}
 				>
 					Login with Google
 				</button>
-				<div>
+				{/* <div>
 					<Link to="/reset">Forgot Password</Link>
 				</div>
 				<div>
 					Don't have an account? <Link to="/register">Register</Link> now.
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

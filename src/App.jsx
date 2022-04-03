@@ -18,10 +18,10 @@ import {
 	ColorScheme,
 } from "@mantine/core";
 
-const links = [
-	{ link: "simple-search", label: "simple" },
-	{ link: "advanced-search", label: "advanced" },
-];
+// const links = [
+// 	{ link: "simple-search", label: "simple" },
+// 	{ link: "advanced-search", label: "advanced" },
+// ];
 
 const myTheme = {
 	colorScheme: "light",

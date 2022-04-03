@@ -109,7 +109,7 @@ const getSavedSearchList = async (userId) => {
 		savedSearchesList.push(doc.id);
 		// doc.data() is never undefined for query doc snapshots
 		// console.log(doc.id, " => ", doc.data());
-		console.log(doc.id);
+		// console.log(doc.id);
 	});
 	return savedSearchesList;
 };
