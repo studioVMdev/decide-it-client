@@ -1,0 +1,86 @@
+"filename", "language", "JavaScript", "SCSS", "JavaScript React", "SVG", "JSON", "HTML", "Markdown", "comment", "blank", "total"
+"d:\CODE\decide-it-client\README.md", "Markdown", 0, 0, 0, 0, 0, 0, 38, 0, 33, 71
+"d:\CODE\decide-it-client\package-lock.json", "JSON", 0, 0, 0, 0, 12877, 0, 0, 0, 1, 12878
+"d:\CODE\decide-it-client\package.json", "JSON", 0, 0, 0, 0, 73, 0, 0, 0, 1, 74
+"d:\CODE\decide-it-client\public\index.html", "HTML", 0, 0, 0, 0, 0, 17, 0, 26, 1, 44
+"d:\CODE\decide-it-client\public\logo.svg", "SVG", 0, 0, 0, 8, 0, 0, 0, 0, 0, 8
+"d:\CODE\decide-it-client\public\manifest.json", "JSON", 0, 0, 0, 0, 25, 0, 0, 0, 1, 26
+"d:\CODE\decide-it-client\src\App.jsx", "JavaScript React", 0, 0, 75, 0, 0, 0, 0, 4, 13, 92
+"d:\CODE\decide-it-client\src\App.scss", "SCSS", 0, 12, 0, 0, 0, 0, 0, 5, 4, 21
+"d:\CODE\decide-it-client\src\App.test.js", "JavaScript", 7, 0, 0, 0, 0, 0, 0, 0, 2, 9
+"d:\CODE\decide-it-client\src\assets\icons\arrow_back-24px.svg", "SVG", 0, 0, 0, 3, 0, 0, 0, 0, 1, 4
+"d:\CODE\decide-it-client\src\assets\icons\arrow_back.svg", "SVG", 0, 0, 0, 3, 0, 0, 0, 0, 1, 4
+"d:\CODE\decide-it-client\src\assets\icons\arrow_drop_down-24px.svg", "SVG", 0, 0, 0, 3, 0, 0, 0, 0, 1, 4
+"d:\CODE\decide-it-client\src\assets\icons\chevron_right-24px.svg", "SVG", 0, 0, 0, 3, 0, 0, 0, 0, 1, 4
+"d:\CODE\decide-it-client\src\assets\icons\close-24px.svg", "SVG", 0, 0, 0, 3, 0, 0, 0, 0, 1, 4
+"d:\CODE\decide-it-client\src\assets\icons\delete_outline-24px.svg", "SVG", 0, 0, 0, 3, 0, 0, 0, 0, 1, 4
+"d:\CODE\decide-it-client\src\assets\icons\edit-24px.svg", "SVG", 0, 0, 0, 3, 0, 0, 0, 0, 1, 4
+"d:\CODE\decide-it-client\src\assets\icons\edit-dark-24px.svg", "SVG", 0, 0, 0, 3, 0, 0, 0, 0, 1, 4
+"d:\CODE\decide-it-client\src\assets\icons\edit-light-24px.svg", "SVG", 0, 0, 0, 3, 0, 0, 0, 0, 1, 4
+"d:\CODE\decide-it-client\src\assets\icons\error-24px.svg", "SVG", 0, 0, 0, 3, 0, 0, 0, 0, 1, 4
+"d:\CODE\decide-it-client\src\assets\icons\search-24px.svg", "SVG", 0, 0, 0, 3, 0, 0, 0, 0, 1, 4
+"d:\CODE\decide-it-client\src\assets\icons\sort-24px.svg", "SVG", 0, 0, 0, 3, 0, 0, 0, 0, 1, 4
+"d:\CODE\decide-it-client\src\components\CardList\CardList.jsx", "JavaScript React", 0, 0, 28, 0, 0, 0, 0, 0, 7, 35
+"d:\CODE\decide-it-client\src\components\CardList\CardList.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"d:\CODE\decide-it-client\src\components\Dashboard\Dashboard.jsx", "JavaScript React", 0, 0, 19, 0, 0, 0, 0, 22, 5, 46
+"d:\CODE\decide-it-client\src\components\Dashboard\Dashboard.scss", "SCSS", 0, 25, 0, 0, 0, 0, 0, 0, 0, 25
+"d:\CODE\decide-it-client\src\components\Footer\Footer.jsx", "JavaScript React", 0, 0, 49, 0, 0, 0, 0, 0, 4, 53
+"d:\CODE\decide-it-client\src\components\Footer\Footer.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"d:\CODE\decide-it-client\src\components\Header\Header.jsx", "JavaScript React", 0, 0, 148, 0, 0, 0, 0, 61, 12, 221
+"d:\CODE\decide-it-client\src\components\Header\Header.scss", "SCSS", 0, 3, 0, 0, 0, 0, 0, 0, 0, 3
+"d:\CODE\decide-it-client\src\components\Register\Register.jsx", "JavaScript React", 0, 0, 64, 0, 0, 0, 0, 0, 2, 66
+"d:\CODE\decide-it-client\src\components\Register\Register.scss", "SCSS", 0, 33, 0, 0, 0, 0, 0, 0, 0, 33
+"d:\CODE\decide-it-client\src\components\Reset\Reset.jsx", "JavaScript React", 0, 0, 38, 0, 0, 0, 0, 0, 2, 40
+"d:\CODE\decide-it-client\src\components\Reset\Reset.scss", "SCSS", 0, 30, 0, 0, 0, 0, 0, 0, 0, 30
+"d:\CODE\decide-it-client\src\components\SaveSearch\SaveSearch.jsx", "JavaScript React", 0, 0, 144, 0, 0, 0, 0, 11, 13, 168
+"d:\CODE\decide-it-client\src\components\buttons\Button.jsx", "JavaScript React", 0, 0, 23, 0, 0, 0, 0, 6, 7, 36
+"d:\CODE\decide-it-client\src\components\buttons\Button.scss", "SCSS", 0, 55, 0, 0, 0, 0, 0, 3, 10, 68
+"d:\CODE\decide-it-client\src\components\cards\CardApp\CardApp.jsx", "JavaScript React", 0, 0, 107, 0, 0, 0, 0, 11, 8, 126
+"d:\CODE\decide-it-client\src\components\cards\CardApp\CardApp.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"d:\CODE\decide-it-client\src\components\cards\CardResults\CardResults.jsx", "JavaScript React", 0, 0, 70, 0, 0, 0, 0, 3, 9, 82
+"d:\CODE\decide-it-client\src\components\charts\ChartApp.jsx", "JavaScript React", 0, 0, 159, 0, 0, 0, 0, 53, 8, 220
+"d:\CODE\decide-it-client\src\components\charts\ChartApp.scss", "SCSS", 0, 13, 0, 0, 0, 0, 0, 2, 2, 17
+"d:\CODE\decide-it-client\src\components\forms\FormSearch\FormSearch.jsx", "JavaScript React", 0, 0, 278, 0, 0, 0, 0, 21, 25, 324
+"d:\CODE\decide-it-client\src\components\forms\FormSearch\FormSearch.scss", "SCSS", 0, 16, 0, 0, 0, 0, 0, 8, 6, 30
+"d:\CODE\decide-it-client\src\components\inputs\InputDate\InputDate.jsx", "JavaScript React", 0, 0, 21, 0, 0, 0, 0, 0, 3, 24
+"d:\CODE\decide-it-client\src\components\inputs\InputErrorTag.jsx", "JavaScript React", 0, 0, 19, 0, 0, 0, 0, 0, 5, 24
+"d:\CODE\decide-it-client\src\components\inputs\InputErrorTag.scss", "SCSS", 0, 11, 0, 0, 0, 0, 0, 0, 8, 19
+"d:\CODE\decide-it-client\src\components\inputs\InputErrorTag\InputErrorTag.jsx", "JavaScript React", 0, 0, 19, 0, 0, 0, 0, 0, 5, 24
+"d:\CODE\decide-it-client\src\components\inputs\InputErrorTag\InputErrorTag.scss", "SCSS", 0, 11, 0, 0, 0, 0, 0, 0, 8, 19
+"d:\CODE\decide-it-client\src\components\inputs\InputNumber\InputNumber.jsx", "JavaScript React", 0, 0, 22, 0, 0, 0, 0, 1, 3, 26
+"d:\CODE\decide-it-client\src\components\inputs\InputNumber\InputNumber.scss", "SCSS", 0, 1, 0, 0, 0, 0, 0, 0, 1, 2
+"d:\CODE\decide-it-client\src\components\inputs\InputRadio\InputRadio.jsx", "JavaScript React", 0, 0, 42, 0, 0, 0, 0, 0, 4, 46
+"d:\CODE\decide-it-client\src\components\inputs\InputRadio\InputRadio.scss", "SCSS", 0, 13, 0, 0, 0, 0, 0, 0, 4, 17
+"d:\CODE\decide-it-client\src\components\inputs\InputSearch\InputSearch.jsx", "JavaScript React", 0, 0, 24, 0, 0, 0, 0, 0, 4, 28
+"d:\CODE\decide-it-client\src\components\inputs\InputSearch\InputSearch.scss", "SCSS", 0, 43, 0, 0, 0, 0, 0, 0, 10, 53
+"d:\CODE\decide-it-client\src\components\inputs\InputSelect\InputSelect.jsx", "JavaScript React", 0, 0, 40, 0, 0, 0, 0, 5, 4, 49
+"d:\CODE\decide-it-client\src\components\inputs\InputSelect\InputSelect.scss", "SCSS", 0, 1, 0, 0, 0, 0, 0, 0, 1, 2
+"d:\CODE\decide-it-client\src\components\inputs\InputTextArea\InputTextArea.jsx", "JavaScript React", 0, 0, 23, 0, 0, 0, 0, 0, 3, 26
+"d:\CODE\decide-it-client\src\components\inputs\InputTextArea\InputTextArea.scss", "SCSS", 0, 13, 0, 0, 0, 0, 0, 1, 2, 16
+"d:\CODE\decide-it-client\src\components\inputs\InputText\InputText.jsx", "JavaScript React", 0, 0, 21, 0, 0, 0, 0, 1, 3, 25
+"d:\CODE\decide-it-client\src\components\inputs\InputText\InputText.scss", "SCSS", 0, 32, 0, 0, 0, 0, 0, 3, 8, 43
+"d:\CODE\decide-it-client\src\components\inputs\input.scss", "SCSS", 0, 39, 0, 0, 0, 0, 0, 0, 10, 49
+"d:\CODE\decide-it-client\src\data\merton-small-full.json", "JSON", 0, 0, 0, 0, 44524, 0, 0, 0, 1, 44525
+"d:\CODE\decide-it-client\src\firebase.js", "JavaScript", 146, 0, 0, 0, 0, 0, 0, 9, 14, 169
+"d:\CODE\decide-it-client\src\index.js", "JavaScript", 16, 0, 0, 0, 0, 0, 0, 0, 1, 17
+"d:\CODE\decide-it-client\src\pages\PageAdvancedSearch\PageAdvancedSearch.jsx", "JavaScript React", 0, 0, 177, 0, 0, 0, 0, 7, 18, 202
+"d:\CODE\decide-it-client\src\pages\PageAdvancedSearch\PageAdvancedSearch.scss", "SCSS", 0, 12, 0, 0, 0, 0, 0, 4, 3, 19
+"d:\CODE\decide-it-client\src\pages\PageLogin\PageLogin.jsx", "JavaScript React", 0, 0, 38, 0, 0, 0, 0, 23, 2, 63
+"d:\CODE\decide-it-client\src\pages\PageLogin\PageLogin.scss", "SCSS", 0, 33, 0, 0, 0, 0, 0, 0, 0, 33
+"d:\CODE\decide-it-client\src\pages\PageSimpleSearch\PageSimpleSearch.jsx", "JavaScript React", 0, 0, 240, 0, 0, 0, 0, 6, 26, 272
+"d:\CODE\decide-it-client\src\pages\PageSimpleSearch\PageSimpleSearch.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"d:\CODE\decide-it-client\src\styles\_index.scss", "SCSS", 0, 4, 0, 0, 0, 0, 0, 0, 1, 5
+"d:\CODE\decide-it-client\src\styles\partials\base\_index.scss", "SCSS", 0, 2, 0, 0, 0, 0, 0, 0, 0, 2
+"d:\CODE\decide-it-client\src\styles\partials\base\_reset.scss", "SCSS", 0, 34, 0, 0, 0, 0, 0, 1, 3, 38
+"d:\CODE\decide-it-client\src\styles\partials\base\_typography.scss", "SCSS", 0, 80, 0, 0, 0, 0, 0, 1, 11, 92
+"d:\CODE\decide-it-client\src\styles\partials\layout\_index.scss", "SCSS", 0, 1, 0, 0, 0, 0, 0, 0, 0, 1
+"d:\CODE\decide-it-client\src\styles\partials\layout\_page.scss", "SCSS", 0, 8, 0, 0, 0, 0, 0, 0, 1, 9
+"d:\CODE\decide-it-client\src\styles\partials\pages\_index.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"d:\CODE\decide-it-client\src\styles\partials\utils\_index.scss", "SCSS", 0, 2, 0, 0, 0, 0, 0, 0, 0, 2
+"d:\CODE\decide-it-client\src\styles\partials\utils\_mixins.scss", "SCSS", 0, 44, 0, 0, 0, 0, 0, 10, 12, 66
+"d:\CODE\decide-it-client\src\styles\partials\utils\_variables.scss", "SCSS", 0, 13, 0, 0, 0, 0, 0, 3, 7, 23
+"d:\CODE\decide-it-client\src\utils\apiCalls.mjs", "JavaScript", 57, 0, 0, 0, 0, 0, 0, 21, 5, 83
+"d:\CODE\decide-it-client\src\utils\decisionDatesStats.mjs", "JavaScript", 37, 0, 0, 0, 0, 0, 0, 0, 7, 44
+"d:\CODE\decide-it-client\src\utils\getConfidenceLevel.mjs", "JavaScript", 32, 0, 0, 0, 0, 0, 0, 1, 7, 40
+"d:\CODE\decide-it-client\src\utils\queryOptions.mjs", "JavaScript", 69, 0, 0, 0, 0, 0, 0, 10, 4, 83
+"Total", "-", 364, 584, 1888, 44, 57499, 17, 38, 343, 402, 61179

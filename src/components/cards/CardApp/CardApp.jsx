@@ -1,20 +1,7 @@
-import React, { useState } from "react";
-import {
-	Container,
-	Group,
-	Text,
-	Paper,
-	Collapse,
-	Button,
-	Switch,
-	Badge,
-	SimpleGrid,
-} from "@mantine/core";
+import { Group, Paper, Text, Badge, SimpleGrid } from "@mantine/core";
 import "./CardApp.scss";
 
 const CardApp = ({ appData }) => {
-	// const [opened, setOpen] = useState(false);
-
 	const defaultColor = "gray";
 	const cellsData = [
 		{
@@ -57,25 +44,10 @@ const CardApp = ({ appData }) => {
 		},
 	];
 
-	// const allPropertiesJSX = Object.entries(appData).map(([key, val]) => (
-	// 	<div key={key} className="">
-	// 		<h3>{key}</h3>
-	// 		<p>{val}</p>
-	// 	</div>
-	// ));
-
-	// console.log(allPropertiesJSX);
-
 	return (
 		<>
 			<Paper shadow="xs" p="xs" m="xs" withBorder>
 				<Group position="left">
-					{/* <Text size="xs">Status:</Text> */}
-					{/* <Switch
-						checked={opened}
-						size="xs"
-						onChange={(event) => setOpen(event.currentTarget.checked)}
-					/> */}
 					<SimpleGrid
 						sx={{ width: "100%" }}
 						cols={7}

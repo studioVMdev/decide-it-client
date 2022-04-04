@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./Header.scss";
 import {
@@ -12,6 +12,8 @@ import {
 	Text,
 	Container,
 	Box,
+	Menu,
+	Modal,
 	SimpleGrid,
 	useMantineTheme,
 } from "@mantine/core";
@@ -19,7 +21,13 @@ import { Sun, MoonStars, MapSearch } from "tabler-icons-react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
 // import { onAuthStateChanged } from "firebase/auth";
-import { auth, db, logout } from "../../firebase";
+import {
+	auth,
+	db,
+	logout,
+	signInWithGoogle,
+	signInWithEmailAndPassword,
+} from "../../firebase";
 // import {
 // 	query,
 // 	collection,
@@ -33,9 +41,13 @@ import { auth, db, logout } from "../../firebase";
 
 const Header = () => {
 	const [user, loading, error] = useAuthState(auth);
+	const [opened, setOpened] = useState(false);
 	const componentMounted = useRef(true); // (3) component is mounted
 	// const auth = getAuth();
 	// const user = auth.currentUser;
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const navigate = useNavigate();
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [name, setName] = useState("");
 
@@ -76,6 +88,7 @@ const Header = () => {
 		// if (componentMounted.current) {
 		user && console.log("logged in");
 		user && setIsLoggedIn(true);
+		user && setOpened(false);
 		// }
 		return () => {
 			// This code runs when component is unmounted
@@ -86,6 +99,7 @@ const Header = () => {
 
 	return (
 		<>
+			;
 			<Paper shadow="md" p="xs" m="sm" withBorder>
 				<Box
 					sx={(theme) => ({
@@ -152,20 +166,21 @@ const Header = () => {
 						<Button
 							variant="light"
 							size="xs"
-							component={Link}
+							// component={Link}
 							label={!isLoggedIn ? "Login" : "Logout"}
-							to={!isLoggedIn ? "/login" : "/advanced-search"}
+							// to={!isLoggedIn ? "/login" : "/advanced-search"}
 							onClick={() => {
 								if (user) {
 									logout();
 									setName("");
 									setIsLoggedIn(false);
+								} else {
+									setOpened(true);
 								}
 							}}
 						>
 							{!isLoggedIn ? "Login" : "Logout"}
 						</Button>
-
 						{/* <div>{isLoggedIn && name}</div> */}
 						{/* <div>{user?.email}</div> */}
 						<Avatar
@@ -184,6 +199,20 @@ const Header = () => {
 					</Group>
 				</Box>
 			</Paper>
+			<Modal
+				opened={opened}
+				onClose={() => setOpened(false)}
+				title="Login to your account."
+				size={250}
+			>
+				<button
+					className="login__btn login__google"
+					style={{ width: "100%" }}
+					onClick={signInWithGoogle}
+				>
+					Login with Google
+				</button>
+			</Modal>
 		</>
 	);
 };

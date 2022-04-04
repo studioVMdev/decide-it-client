@@ -42,7 +42,7 @@ const PageSimpleSearch = () => {
 	const [radius, setRadius] = useState(1);
 	const [appSize, setAppSize] = useState("");
 	const [appType, setAppType] = useState("");
-	const [resultsSize, setResultsSize] = useState(500);
+	const [resultsSize, setResultsSize] = useState(50);
 	//! This start date is always 12 months in the past
 	const [startDate, setStartDate] = useState(
 		dayjs(dayjs().subtract(12, "month")).format("YYYY-MM-DD")
@@ -74,6 +74,10 @@ const PageSimpleSearch = () => {
 			loading: true,
 		});
 
+		setRawData("");
+		setIsDataLoading(true);
+		console.log("submiting");
+
 		try {
 			setRawData("");
 			setIsDataLoading(true);
@@ -101,7 +105,7 @@ const PageSimpleSearch = () => {
 				notifications.showNotification({
 					id: "networkErrorNotification",
 					title: `${error}`,
-					message: `Please try again...`,
+					message: `Postcode not found...`,
 					color: "red",
 					className: "my-notification-class",
 					style: { backgroundColor: "red" },
@@ -256,14 +260,12 @@ const PageSimpleSearch = () => {
 				labels={Options.duration()}
 			/>
 			<Accordion>
-				<Accordion.Item
-					label="Detailed Applications List"
-				>
+				<Accordion.Item label="Detailed Applications List">
 					{!isDataLoading && <CardList rawData={rawData} />}
 				</Accordion.Item>
 			</Accordion>
 		</>
 	);
-};
+};;
 
 export default PageSimpleSearch;

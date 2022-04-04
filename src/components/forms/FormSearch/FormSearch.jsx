@@ -132,11 +132,12 @@ const FormSearch = ({
 			response.status === 400 && console.log(response.data.error);
 		} catch (error) {
 			if (error.message === "Network Error") {
+				// console.log(error);
 				notifications.hideNotification("fetchingNotification");
 				notifications.showNotification({
 					id: "networkErrorNotification",
 					title: `${error}`,
-					message: `Please try again...`,
+					message: `Maximum searches limit reached, please try again later...`,
 					color: "red",
 					className: "my-notification-class",
 					style: { backgroundColor: "red" },
@@ -260,6 +261,7 @@ const FormSearch = ({
 								>
 									<NumberInput
 										min={10}
+										max={200}
 										value={sampleSize}
 										label="Sample Size"
 										placeholder="Sample Size"
