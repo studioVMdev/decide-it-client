@@ -58,26 +58,19 @@ const App = () => {
 					<Header />
 					<div className="App__body">
 						<Routes>
-							<Route exact path="/dashboard" element={<Dashboard />} />
+							{/* <Route exact path="/dashboard" element={<Dashboard />} /> */}
 							<Route exact path="/register" element={<Register />} />
 							<Route exact path="/reset" element={<Reset />} />
 
 							<Route exact path="/login" element={<PageLogin />} />
 
+							<Route path="/" element={<PageSimpleSearch />} />
 							<Route
-								path="/simple-search"
-								element={<PageSimpleSearch />}
-							/>
-							<Route
-								path="/advanced-search"
+								path="/dashboard"
 								element={<PageAdvancedSearch />}
 							/>
 
-							<Route
-								path="/"
-								exact
-								element={<Navigate to="simple-search" />}
-							/>
+							<Route path="/home" exact element={<Navigate to="/" />} />
 						</Routes>
 					</div>
 

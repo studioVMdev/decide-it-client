@@ -9,17 +9,13 @@ import {
 	ActionIcon,
 	Paper,
 	Avatar,
+	Anchor,
 	Text,
-	Container,
 	Box,
-	Menu,
 	Modal,
-	SimpleGrid,
-	useMantineTheme,
 } from "@mantine/core";
 import { Sun, MoonStars, MapSearch } from "tabler-icons-react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { getAuth } from "firebase/auth";
 // import { onAuthStateChanged } from "firebase/auth";
 import {
 	auth,
@@ -28,16 +24,7 @@ import {
 	signInWithGoogle,
 	signInWithEmailAndPassword,
 } from "../../firebase";
-// import {
-// 	query,
-// 	collection,
-// 	getDocs,
-// 	getDoc,
-// 	where,
-// 	doc,
-// 	setDoc,
-// 	serverTimestamp,
-// } from "firebase/firestore";
+import Logo from "../Logo/Logo";
 
 const Header = () => {
 	const [user, loading, error] = useAuthState(auth);
@@ -56,8 +43,8 @@ const Header = () => {
 	const dark = colorScheme === "dark";
 
 	const links = [
-		{ link: "/simple-search", label: "Simple", variant: "subtle" },
-		{ link: "/advanced-search", label: "Advanced", variant: "subtle" },
+		// { link: "/simple-search", label: "Simple", variant: "subtle" },
+		{ link: "/dashboard", label: "Dashboard", variant: "subtle" },
 	];
 
 	// if (user) {
@@ -98,34 +85,33 @@ const Header = () => {
 	}, [user]);
 
 	return (
-		<>
-			<Paper shadow="md" p="xs" m="sm" withBorder>
+		<header className="header">
+			<Paper
+				shadow="md"
+				p="xs"
+				m="sm"
+				withBorder
+				className="header__container"
+			>
 				<Box
+					className="header__wrapper"
 					sx={(theme) => ({
 						display: "flex",
 						justifyContent: "space-between",
 					})}
 				>
-					<Group>
-						<MapSearch color={dark ? "lightgrey" : "slategrey"} />
-						<Box
-							sx={(theme) => ({
-								display: "flex",
-								justifyContent: "space-between",
-							})}
-						>
-							<Text color={dark ? "lime" : "lime"} m={0}>
-								plan
-							</Text>
-							<Text weight={700} color={dark ? "cyan" : "cyan"} m={0}>
-								in
-							</Text>
-							<Text weight={700} color={dark ? "cyan" : "cyan"} m={0}>
-								SIGHT
-							</Text>
-						</Box>
+					<Group className="header__wrapper-left">
+						<MapSearch
+							className="header__logo-icon"
+							color={dark ? "lightgrey" : "slategrey"}
+							onClick={() => navigate("/")}
+						/>
+						<Anchor href="/">
+							<Logo className="header__logo-text" />
+						</Anchor>
 					</Group>
-					<Group>
+
+					<Group className="header__wrapper-center">
 						{links.map((link) => (
 							<Button
 								key={link.label}
@@ -139,7 +125,7 @@ const Header = () => {
 						))}
 					</Group>
 
-					<Group position="right">
+					<Group position="right" className="header_wrapper-right">
 						<Button
 							variant="light"
 							size="xs"
@@ -190,7 +176,7 @@ const Header = () => {
 					Login with Google
 				</button>
 			</Modal>
-		</>
+		</header>
 	);
 };
 

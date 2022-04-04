@@ -1,3 +1,28 @@
-.selected{
-  color: green;
+@use "../../styles/partials/utils/index" as *;
+
+.header{
+
+  &__container{
+
+  }
+
+  &__wrapper{
+    &-left{
+      @include flex;
+    }
+    &-center{
+
+    }
+    &-right{
+
+    }
+  }
+
+  &__logo-text{
+    display: none;
+    @include media-tablet{
+      display: inline-flex;
+    }
+  }
+
 }

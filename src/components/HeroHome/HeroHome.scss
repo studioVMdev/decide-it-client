@@ -1,0 +1,44 @@
+@use "../../styles/partials/utils/index" as *;
+
+.hero-home {
+	&__container {
+		padding: 2rem;
+		@include flex;
+    gap: 2rem;
+	}
+
+  &__wrapper-left{
+    @include media-mobile{
+      display: none;
+    }
+  }
+
+	&__wrapper-right {
+    height: 100;
+    width: fit-content;
+		@include flex(center, center, row);
+	}
+
+	&__heading {
+    font-size: 1.4rem;
+    @include media-tablet{
+      font-size: 2rem;
+    }
+		// flex-wrap: wrap;
+	}
+	&__subheading {
+		max-width: 37rem;
+
+    font-size: 1rem;
+    @include media-tablet{
+      font-size: 1.2rem;
+    }
+
+    & > strong{
+      font-weight: bold;
+    }
+	}
+	&__logo {
+		font-size: 1.4rem;
+	}
+}

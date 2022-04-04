@@ -19,7 +19,7 @@ const Footer = () => {
 	const navigate = useNavigate();
 
 	return (
-		<>
+		<footer>
 			<Paper shadow="md" p="xs" m="sm" withBorder>
 				<Group grow>
 					<Group position="left">
@@ -45,7 +45,7 @@ const Footer = () => {
 					</Group>
 				</Group>
 			</Paper>
-		</>
+		</footer>
 	);
 };
 

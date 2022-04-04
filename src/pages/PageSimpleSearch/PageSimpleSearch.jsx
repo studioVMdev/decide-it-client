@@ -28,6 +28,7 @@ import {
 	Paper,
 	useMantineTheme,
 } from "@mantine/core";
+import HeroHome from "../../components/HeroHome/HeroHome";
 
 const PageSimpleSearch = () => {
 	const theme = useMantineTheme();
@@ -143,6 +144,8 @@ const PageSimpleSearch = () => {
 
 	return (
 		<>
+			<HeroHome />
+
 			<SimpleGrid
 				cols={2}
 				spacing="xs"
@@ -174,7 +177,9 @@ const PageSimpleSearch = () => {
 									)
 								}
 							/>
-							<Button onClick={handleSubmit} fullWidth>Search</Button>
+							<Button onClick={handleSubmit} fullWidth>
+								Search
+							</Button>
 						</Group>
 					</Paper>
 					<CardResults
