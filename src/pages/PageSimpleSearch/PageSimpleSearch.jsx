@@ -6,24 +6,32 @@ import dayjs from "dayjs";
 import { useNotifications } from "@mantine/notifications";
 import { Accordion } from "@mantine/core";
 import ChartApp from "../../components/charts/ChartApp";
+import CardResults from "../../components/cards/CardResults/CardResults";
 import CardList from "../../components/CardList/CardList";
 
 import { GET_SIMPLE_SEARCH } from "../../utils/apiCalls.mjs";
+import getConfidenceLevel from "../../utils/getConfidenceLevel.mjs";
 
 import { useState, useEffect } from "react";
 import {
 	Stepper,
 	Button,
+	Box,
+	Container,
 	Group,
+	SimpleGrid,
 	InputWrapper,
 	TextInput,
 	NumberInput,
 	Select,
 	Text,
 	Paper,
+	useMantineTheme,
 } from "@mantine/core";
 
 const PageSimpleSearch = () => {
+	const theme = useMantineTheme();
+
 	const notifications = useNotifications();
 
 	const [active, setActive] = useState(0);
@@ -38,11 +46,11 @@ const PageSimpleSearch = () => {
 	const [durationData, setDurationData] = useState("");
 
 	const [postCode, setPostCode] = useState("");
-	const [isValidPostcode, setIsValidPostcode] = useState(true);
-	const [radius, setRadius] = useState(1);
+	// const [isValidPostcode, setIsValidPostcode] = useState(true);
+	const [radius, setRadius] = useState(3);
 	const [appSize, setAppSize] = useState("");
 	const [appType, setAppType] = useState("");
-	const [resultsSize, setResultsSize] = useState(50);
+	const [requestSize, setRequestSize] = useState(50);
 	//! This start date is always 12 months in the past
 	const [startDate, setStartDate] = useState(
 		dayjs(dayjs().subtract(12, "month")).format("YYYY-MM-DD")
@@ -57,12 +65,16 @@ const PageSimpleSearch = () => {
 		rawData && analyseData();
 	}, [rawData]);
 
-	const postcodeIsValid = (p) => {
+	const postcodeIsValid = (p = postCode.split("+").join(" ")) => {
 		let postcodeRegEx = /[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}/i;
 		return postcodeRegEx.test(p);
 	};
 
 	const handleSubmit = async () => {
+		if (!postcodeIsValid()) {
+			return;
+		}
+
 		notifications.hideNotification("networkErrorNotification");
 
 		notifications.showNotification({
@@ -89,7 +101,7 @@ const PageSimpleSearch = () => {
 				appSize,
 				appType,
 				// appState,
-				resultsSize,
+				requestSize,
 				startDate,
 				endDate
 			);
@@ -115,157 +127,113 @@ const PageSimpleSearch = () => {
 		}
 	};
 
+	const confidenceLevelColor = {
+		low: "red",
+		medium: "orange",
+		high: "green",
+	};
+
 	const analyseData = async () => {
 		setResponseSize(rawData.length);
 		setDurationData(getDecisionDatesStats(rawData));
 		setIsDataLoading(false);
 	};
 
-	const firstQuestionJSX = (
-		<>
-			<Group position="center" grow>
-				<InputWrapper
-					id="input-authority"
-					required={true}
-					// label="Local Authority Required"
-					// description="Please select a local authority"
-					error={
-						!isValidPostcode ? "Please enter a valid UK postcode" : ""
-					}
-				>
-					<TextInput
-						clearable="true"
-						value={postCode.split("+").join(" ")}
-						onChange={(event) =>
-							setPostCode(
-								event.currentTarget.value
-									.split(" ")
-									.join("+")
-									.toUpperCase()
-							)
-						}
-						label="Postcode"
-						placeholder="Enter Postcode"
-					/>
-				</InputWrapper>
-
-				<NumberInput
-					clearable="true"
-					value={radius}
-					min={1}
-					label="Radius"
-					placeholder="Radius"
-					onChange={(val) => setRadius(val)}
-				/>
-			</Group>
-		</>
-	);
-
-	const secondQuestionJSX = (
-		<>
-			<Select
-				clearable="true"
-				value={appSize}
-				onChange={setAppSize}
-				label="Application Size"
-				placeholder="Application Size"
-				data={Options.appSize()}
-			/>
-		</>
-	);
-
-	const thirdQuestionJSX = (
-		<>
-			<Select
-				clearable="true"
-				value={appType}
-				onChange={setAppType}
-				label="Application Type"
-				placeholder="Application Type"
-				data={Options.appType()}
-			/>
-		</>
-	);
-
-	const finalStepJSX = (
-		<>
-			<Paper shadow="xs" p="md">
-				<Text weight={700}>
-					All set, we are ready to perform the search! Let's go!
-				</Text>
-			</Paper>
-		</>
-	);
+	//
 
 	return (
 		<>
-			<Paper shadow="xs" p="md" m="sm" withBorder>
-				<Stepper
-					active={active}
-					iconSize={32}
-					onStepClick={setActive}
-					// orientation="vertical"
-					breakpoint="sm"
+			<SimpleGrid
+				cols={2}
+				spacing="xs"
+				breakpoints={[{ maxWidth: 900, cols: 1, spacing: "xs" }]}
+			>
+				<div>
+					<Paper
+						shadow="xs"
+						p="md"
+						m="sm"
+						// style={{ width: "100%" }}
+						withBorder
+					>
+						<Group
+							grow
+							style={{ display: "flex", alignItems: "flex-end" }}
+						>
+							<TextInput
+								clearable="true"
+								label="Enter your postcode"
+								placeholder="AA9A 9AA"
+								value={postCode.split("+").join(" ")}
+								onChange={(event) =>
+									setPostCode(
+										event.currentTarget.value
+											.split(" ")
+											.join("+")
+											.toUpperCase()
+									)
+								}
+							/>
+							<Button onClick={handleSubmit} fullWidth>Search</Button>
+						</Group>
+					</Paper>
+					<CardResults
+						style={{ height: "100%" }}
+						confidenceLevel={getConfidenceLevel(durationData)}
+						confidenceLevelColor={
+							confidenceLevelColor[getConfidenceLevel(durationData)]
+						}
+						requestSize={requestSize}
+						responseSize={responseSize}
+						durationData={durationData}
+					/>
+				</div>
+				<Paper
+					style={{
+						overflow: "auto",
+						border: getConfidenceLevel(durationData)
+							? `2px solid ${
+									theme.colors[
+										confidenceLevelColor[
+											getConfidenceLevel(durationData)
+										]
+									][9]
+							  }`
+							: "",
+					}}
+					shadow="md"
+					p="xs"
+					m="sm"
+					sx={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+					}}
+					withBorder
 				>
-					<Stepper.Step
-						label="Fist step"
-						description="Enter Your Postcode"
-						allowStepSelect={active > 0}
-					>
-						Enter Your Postcode in this format AA9A 9AA
-					</Stepper.Step>
-					<Stepper.Step
-						label="Second step"
-						description="Verify email"
-						allowStepSelect={active > 1}
-					>
-						Step 2 content: Verify email
-					</Stepper.Step>
-					<Stepper.Step
-						label="Final step"
-						description="Get full access"
-						allowStepSelect={active > 2}
-					>
-						Step 3 content: Get full access
-					</Stepper.Step>
-					<Stepper.Completed>
-						All set, we are ready to perform the search! Let's
-					</Stepper.Completed>
-				</Stepper>
+					<ChartApp
+						chartType="line"
+						thresholdValueIndex="1"
+						chartLabel="Decision Duration / Days"
+						dataset={durationData}
+						labels={Options.duration()}
+					/>
+				</Paper>
+			</SimpleGrid>
 
-				<>
-					{active === 0 && firstQuestionJSX}
-					{active === 1 && secondQuestionJSX}
-					{active === 2 && thirdQuestionJSX}
-					{active === 3 && finalStepJSX}
-				</>
-
-				<Group position="center" mt="xl">
-					<Button variant="default" onClick={prevStep}>
-						Back
-					</Button>
-					{active < 3 ? (
-						<Button onClick={nextStep}>Next step</Button>
-					) : (
-						<Button onClick={handleSubmit}>Submit</Button>
-					)}
-				</Group>
-			</Paper>
-
-			<ChartApp
-				chartType="line"
-				thresholdValueIndex="1"
-				chartLabel="Decision Duration / Days"
-				dataset={durationData}
-				labels={Options.duration()}
-			/>
-			<Accordion>
-				<Accordion.Item label="Detailed Applications List">
+			<Accordion p="sm">
+				<Accordion.Item
+					styles={{
+						content: { padding: 0 },
+						contentInner: { padding: 0 },
+					}}
+					label={"Detailed List: " + responseSize + " Applications"}
+				>
 					{!isDataLoading && <CardList rawData={rawData} />}
 				</Accordion.Item>
 			</Accordion>
 		</>
 	);
-};;
+};
 
 export default PageSimpleSearch;

@@ -99,7 +99,6 @@ const Header = () => {
 
 	return (
 		<>
-			;
 			<Paper shadow="md" p="xs" m="sm" withBorder>
 				<Box
 					sx={(theme) => ({
@@ -128,24 +127,6 @@ const Header = () => {
 					</Group>
 					<Group>
 						{links.map((link) => (
-							// 	<Button
-							// 		key={link.label}
-							// 		variant={link.variant}
-							// 		size="xs"
-							// 		component={Link}
-							// 		to={link.link}
-							// 		onClick={() => {
-							// 			if (user && link.label === "Logout") {
-							// 				logout();
-							// 				setName("");
-							// 				setIsLoggedIn(false);
-							// 			}
-							// 		}}
-							// 	>
-							// 		{link.label}
-							// 	</Button>
-							// ))}
-
 							<Button
 								key={link.label}
 								variant={link.variant}
@@ -158,10 +139,6 @@ const Header = () => {
 						))}
 					</Group>
 
-					{/* // 	link: !isLoggedIn ? "/login" : "/advanced-search",
-		// 	variant: "light",
-		// 	label: ,
-		// 	variant: "light", */}
 					<Group position="right">
 						<Button
 							variant="light"
@@ -172,7 +149,7 @@ const Header = () => {
 							onClick={() => {
 								if (user) {
 									logout();
-									setName("");
+									// setName("");
 									setIsLoggedIn(false);
 								} else {
 									setOpened(true);

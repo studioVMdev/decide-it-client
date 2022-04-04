@@ -4,13 +4,13 @@ const getConfidenceLevel = (durationData) => {
 
 	for (let index = 0; index < durationData.length; index++) {
 		const element = durationData[index];
-		if (element <= 0 || isNaN(element)) {
+		if (element < 0 || isNaN(element)) {
 			return "low";
 		}
 	}
 
 	if (durationData[0] > durationData[1]) {
-		return "low";
+		return "medium";
 	}
 
 	if (

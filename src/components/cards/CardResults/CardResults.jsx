@@ -42,6 +42,7 @@ const CardResults = ({
 	return (
 		<>
 			<Alert
+				style={{ alignItems: "flex-start" }}
 				m="sm"
 				icon={
 					!confidenceLevel
@@ -63,13 +64,13 @@ const CardResults = ({
 				</Text>
 				{confidenceLevel && durationData && (
 					<Text>
-						On average, it takes {durationData[2]} days for a planning
-						application to be determined.
+						On average, a planning application has been determined in{" "}
+						<strong>{durationData[2]} days.</strong>
 					</Text>
 				)}
 				{confidenceLevel && durationData && (
 					<Text>
-						Retrieved {responseSize} out of {requestSize} requested
+						Results based on {responseSize} out of {requestSize} requested
 						applications.
 					</Text>
 				)}

@@ -141,8 +141,8 @@ const PageSearch = () => {
 				confidenceLevel={confidenceLevel}
 				requestSize={requestSize}
 				responseSize={responseSize}
-				confidenceLevelColor={confidenceLevelColor[confidenceLevel]}
 				durationData={durationData}
+				confidenceLevelColor={confidenceLevelColor[confidenceLevel]}
 			/>
 
 			<section className="chart">
