@@ -23,6 +23,7 @@
 	}
 
 	&__heading {
+    font-weight: 500;
     font-size: 1.4rem;
     @include media-tablet{
       font-size: 2rem;
@@ -30,6 +31,7 @@
 		// flex-wrap: wrap;
 	}
 	&__subheading {
+    font-weight: 300;
 		max-width: 37rem;
 
     font-size: 1rem;
@@ -41,6 +43,14 @@
       font-weight: bold;
     }
 	}
+
+  &__cta{
+    font-weight: 400;
+    font-size: 1rem;
+    @include media-tablet{
+      font-size: 1.2rem;
+    }
+  }
 	&__logo {
 		font-size: 1.4rem;
 	}

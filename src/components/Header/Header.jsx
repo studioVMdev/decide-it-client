@@ -127,7 +127,8 @@ const Header = () => {
 
 					<Group position="right" className="header_wrapper-right">
 						<Button
-							variant="light"
+							variant="subtle"
+							compact
 							size="xs"
 							// component={Link}
 							label={!isLoggedIn ? "Login" : "Logout"}

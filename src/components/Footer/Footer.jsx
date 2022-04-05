@@ -22,12 +22,12 @@ const Footer = () => {
 		<footer>
 			<Paper shadow="md" p="xs" m="sm" withBorder>
 				<Group grow>
-					<Group position="left">
+					{/* <Group position="left">
 						<Anchor href="/faq">
 							<Text size="sm">FAQ</Text>
 						</Anchor>
-					</Group>
-					<Group position="center">
+					</Group> */}
+					<Group position="left">
 						<Text size="sm" color={theme.primaryColor}>
 							Made with 💙 by Valentin Manaila
 						</Text>
@@ -39,9 +39,11 @@ const Footer = () => {
 							target="_blank"
 						>
 							<Text color="gray" size="sm">
-								Contribute to this project <BrandGithub size={14} />
+								{" "}
+								Github
 							</Text>
 						</Anchor>
+						<BrandGithub size={14} />
 					</Group>
 				</Group>
 			</Paper>

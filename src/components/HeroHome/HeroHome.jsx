@@ -46,7 +46,7 @@ const HeroHome = () => {
 				<Group className="hero-home__wrapper-right">
 					<Title
 						className="hero-home__heading"
-						style={{ color: theme.colors.grape[8] }}
+						style={{ color: theme.colors.pink[6] }}
 						order={2}
 					>
 						Urban Planning Decision Analysis Tool
@@ -65,7 +65,7 @@ const HeroHome = () => {
 					</Title>
 					<Title
 						className="hero-home__cta"
-						style={{ color: theme.colors.pink[5] }}
+						style={{ color: theme.colors.orange[5] }}
 						order={6}
 					>
 						Try it below using a postcode or use the advanced search

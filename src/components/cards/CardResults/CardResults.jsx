@@ -64,14 +64,15 @@ const CardResults = ({
 				</Text>
 				{confidenceLevel && durationData && (
 					<Text>
-						On average, a planning application has been determined in{" "}
-						<strong>{durationData[2]} days.</strong>
+						Based on your parameters, an application was determined in{" "}
+						<strong>{durationData[3]} days.</strong>
 					</Text>
 				)}
 				{confidenceLevel && durationData && (
 					<Text>
-						Results based on {responseSize} out of {requestSize} requested
-						applications.
+						Analysis performed on <strong>{responseSize}</strong> /{" "}
+						<strong>{requestSize}</strong> requested applications. See
+						detailed list.
 					</Text>
 				)}
 			</Alert>
