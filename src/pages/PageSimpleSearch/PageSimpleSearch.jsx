@@ -14,17 +14,10 @@ import getConfidenceLevel from "../../utils/getConfidenceLevel.mjs";
 
 import { useState, useEffect } from "react";
 import {
-	Stepper,
 	Button,
-	Box,
-	Container,
 	Group,
 	SimpleGrid,
-	InputWrapper,
 	TextInput,
-	NumberInput,
-	Select,
-	Text,
 	Paper,
 	useMantineTheme,
 } from "@mantine/core";
@@ -35,11 +28,11 @@ const PageSimpleSearch = () => {
 
 	const notifications = useNotifications();
 
-	const [active, setActive] = useState(0);
-	const nextStep = () =>
-		setActive((current) => (current < 3 ? current + 1 : current));
-	const prevStep = () =>
-		setActive((current) => (current > 0 ? current - 1 : current));
+	// const [active, setActive] = useState(0);
+	// const nextStep = () =>
+	// 	setActive((current) => (current < 3 ? current + 1 : current));
+	// const prevStep = () =>
+	// 	setActive((current) => (current > 0 ? current - 1 : current));
 
 	const [isDataLoading, setIsDataLoading] = useState(true);
 	const [rawData, setRawData] = useState("");
@@ -49,9 +42,9 @@ const PageSimpleSearch = () => {
 	const [postCode, setPostCode] = useState("");
 	// const [isValidPostcode, setIsValidPostcode] = useState(true);
 	const [radius, setRadius] = useState(3);
-	const [appSize, setAppSize] = useState("");
-	const [appType, setAppType] = useState("");
-	const [requestSize, setRequestSize] = useState(50);
+	const [appSize, setAppSize] = useState("Small");
+	const [appType, setAppType] = useState("Full");
+	const [requestSize, setRequestSize] = useState(30);
 	//! This start date is always 12 months in the past
 	const [startDate, setStartDate] = useState(
 		dayjs(dayjs().subtract(12, "month")).format("YYYY-MM-DD")
@@ -62,7 +55,7 @@ const PageSimpleSearch = () => {
 	);
 
 	useEffect(() => {
-		console.log("analysing data");
+		// console.log("analysing data");
 		rawData && analyseData();
 	}, [rawData]);
 
@@ -89,12 +82,12 @@ const PageSimpleSearch = () => {
 
 		setRawData("");
 		setIsDataLoading(true);
-		console.log("submiting");
+		// console.log("submiting");
 
 		try {
 			setRawData("");
 			setIsDataLoading(true);
-			console.log("submiting");
+			// console.log("submiting");
 
 			const response = await GET_SIMPLE_SEARCH(
 				postCode,
@@ -106,13 +99,13 @@ const PageSimpleSearch = () => {
 				startDate,
 				endDate
 			);
-			console.log(response.data);
+			// console.log(response.data);
 			setRawData(response.data.records);
 
 			notifications.hideNotification("fetchingNotification");
 		} catch (error) {
-			console.log(JSON.stringify(error));
-			console.log(error.response);
+			// console.log(JSON.stringify(error));
+			// console.log(error.response);
 			if (error.message === "Network Error") {
 				notifications.hideNotification("fetchingNotification");
 				notifications.showNotification({

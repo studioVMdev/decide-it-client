@@ -1,14 +1,10 @@
 import React from "react";
 import "./Footer.scss";
-import { Heart, BrandGithub } from "tabler-icons-react";
-import { useNavigate } from "react-router";
+import { BrandGithub } from "tabler-icons-react";
 import {
 	Group,
 	Button,
-	useMantineColorScheme,
 	useMantineTheme,
-	ActionIcon,
-	Title,
 	Text,
 	Paper,
 	Anchor,
@@ -16,7 +12,6 @@ import {
 
 const Footer = () => {
 	const theme = useMantineTheme();
-	const navigate = useNavigate();
 
 	return (
 		<footer>

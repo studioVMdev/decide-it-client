@@ -26,11 +26,11 @@ const getDecisionDatesStats = (rawData) => {
 		statutoryDays += n_statutory_days / rawData.length || 0;
 	});
 
-	console.log("reg dur", registrationDuration);
-	console.log("target dur", decisionTarget);
-	console.log("decision dur", decisionDuration);
-	console.log("total dur", totalDuration);
-	console.log("statutory dur", statutoryDays);
+	// console.log("reg dur", registrationDuration);
+	// console.log("target dur", decisionTarget);
+	// console.log("decision dur", decisionDuration);
+	// console.log("total dur", totalDuration);
+	// console.log("statutory dur", statutoryDays);
 
 	return [
 		parseInt(registrationDuration),

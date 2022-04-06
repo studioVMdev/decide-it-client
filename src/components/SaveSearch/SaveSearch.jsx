@@ -5,11 +5,9 @@ import {
 	Button,
 	Select,
 	Group,
-	Box,
 	useMantineTheme,
-	MediaQuery,
 } from "@mantine/core";
-import { AlignJustified, X } from "tabler-icons-react";
+import { X } from "tabler-icons-react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
 	auth,
@@ -38,8 +36,6 @@ const SaveSearch = ({ searchParams, populateForm }) => {
 	});
 
 	useEffect(() => {
-		// console.log("list updated to ", savedSearchList);
-
 		if (savedSearchList) {
 			setIsListLoading(false);
 		}
@@ -58,13 +54,6 @@ const SaveSearch = ({ searchParams, populateForm }) => {
 				borderRadius: theme.radius.md,
 				border: "1px solid " + theme.colors.gray[4],
 			}}
-
-			// sx={(theme) => ({
-			// 	backgroundColor:
-			// 		theme.colorScheme === "dark"
-			// 			? theme.colors.dark[6]
-			// 			: theme.colors.gray[0],
-			// })}
 		>
 			<Group
 				style={{
@@ -131,7 +120,6 @@ const SaveSearch = ({ searchParams, populateForm }) => {
 						variant="outline"
 						color={theme.primaryColor}
 						disabled={searchName ? 0 : 1}
-						// fullWidth
 						onClick={async () => {
 							// console.log(user);
 							const savedParams = await getSavedSearch(
@@ -149,7 +137,6 @@ const SaveSearch = ({ searchParams, populateForm }) => {
 						variant="outline"
 						color="red"
 						disabled={searchName ? 0 : 1}
-						// fullWidth
 						onClick={async () => {
 							await deleteSavedSearch(user.uid, searchName);
 							fetchList();

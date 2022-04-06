@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import "./FormSearch.scss";
 import { useNotifications } from "@mantine/notifications";
-import { Divider, SimpleGrid, Paper, Group } from "@mantine/core";
+import { SimpleGrid, Paper, Group } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import dayjs from "dayjs";
-import { Search } from "tabler-icons-react";
 import { TextInput, NumberInput, Select, Button, Box } from "@mantine/core";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db, logout } from "../../../firebase";
@@ -15,12 +14,7 @@ import Options from "../../../utils/queryOptions.mjs";
 import { GET_QUERY_SEARCH } from "../../../utils/apiCalls.mjs";
 import SaveSearch from "../../SaveSearch/SaveSearch";
 
-const FormSearch = ({
-	setRawData,
-	setIsDataLoading,
-	setRequestSize,
-	// setResponseSize,
-}) => {
+const FormSearch = ({ setRawData, setIsDataLoading, setRequestSize }) => {
 	const [user, loading, error] = useAuthState(auth);
 
 	const notifications = useNotifications();
@@ -31,9 +25,7 @@ const FormSearch = ({
 	const [appType, setAppType] = useState("Full");
 	const [appState, setAppState] = useState("");
 	const [sampleSize, setSampleSize] = useState(10);
-	// const [resultsSize, setResultsSize] = useState("");
 
-	// const [searchedResultsSize, setSearchedResultsSize] = useState("");
 	const [searchTerms, setSearchTerms] = useState("");
 	//* This start date is always 12 months in the past
 	const [startDate, setStartDate] = useState(
@@ -108,7 +100,7 @@ const FormSearch = ({
 			autoClose: 30000,
 			loading: true,
 		});
-		console.log("scraping data....");
+		// console.log("scraping data....");
 
 		try {
 			const response = await GET_QUERY_SEARCH(
@@ -125,7 +117,6 @@ const FormSearch = ({
 			// console.log(response.data.records);
 			setRawData(response.data.records);
 			setResponseSize(response.data.records.length);
-			// setSearchedResultsSize(resultsSize);
 			setRequestSize(sampleSize);
 			notifications.hideNotification("fetchingNotification");
 

@@ -3,7 +3,7 @@ import React from "react";
 import { Text, Box, useMantineColorScheme } from "@mantine/core";
 
 const Logo = ({ size = "", className }) => {
-	const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+	const { colorScheme } = useMantineColorScheme();
 	const dark = colorScheme === "dark";
 
 	return (

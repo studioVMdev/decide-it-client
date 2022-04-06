@@ -10,7 +10,6 @@ import {
 	Paper,
 	Avatar,
 	Anchor,
-	Text,
 	Box,
 	Modal,
 } from "@mantine/core";
@@ -73,14 +72,14 @@ const Header = () => {
 
 	useEffect(() => {
 		// if (componentMounted.current) {
-		user && console.log("logged in");
+		// user && console.log("logged in");
 		user && setIsLoggedIn(true);
 		user && setOpened(false);
 		// }
 		return () => {
 			// This code runs when component is unmounted
 			componentMounted.current = false; // (4) set it to false when we leave the page
-			console.log("unmounting");
+			// console.log("unmounting");
 		};
 	}, [user]);
 

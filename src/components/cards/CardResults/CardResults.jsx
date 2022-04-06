@@ -1,17 +1,10 @@
 import React from "react";
 
 import {
-	Accordion,
-	Paper,
-	Center,
 	Alert,
-	useMantineTheme,
+	// useMantineTheme,
 	Text,
 } from "@mantine/core";
-
-//CircleCheck
-//Alert Circke
-//AlertTriangle
 
 import {
 	CircleDashed,
@@ -27,10 +20,10 @@ const CardResults = ({
 	requestSize = 0,
 	responseSize = 0,
 }) => {
-	const theme = useMantineTheme();
+	// const theme = useMantineTheme();
 
 	const confidenceLevelIconSize = 16;
-	console.log(confidenceLevel);
+	// console.log(confidenceLevel);
 
 	const confidenceLevelIcon = {
 		neutral: <CircleDashed size={confidenceLevelIconSize} />,
@@ -70,7 +63,7 @@ const CardResults = ({
 				)}
 				{confidenceLevel && durationData && (
 					<Text>
-						Analysis performed on <strong>{responseSize}</strong> /{" "}
+						Analysis performed on <strong>{responseSize}</strong>/
 						<strong>{requestSize}</strong> requested applications. See
 						detailed list.
 					</Text>

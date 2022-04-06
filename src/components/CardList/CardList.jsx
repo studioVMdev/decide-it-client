@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./CardList.scss";
 
-import { Text, Pagination, Divider } from "@mantine/core";
+import { Pagination } from "@mantine/core";
 
 import CardApp from "../cards/CardApp/CardApp";
 
@@ -9,7 +9,7 @@ const CardList = ({ rawData }) => {
 	const [activePage, setPage] = useState(1);
 	const pageSize = 10;
 
-	console.log(activePage);
+	// console.log(activePage);
 	const slicedData = rawData.slice(
 		(activePage - 1) * pageSize,
 		activePage * pageSize

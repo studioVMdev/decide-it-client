@@ -3,16 +3,7 @@ import "./HeroHome.scss";
 import Logo from "../Logo/Logo";
 import Lottie from "react-lottie";
 import animationData from "../../assets/animations/hero-animation.json";
-import {
-	Paper,
-	Group,
-	Title,
-	Text,
-	Box,
-	Divider,
-	Container,
-	useMantineTheme,
-} from "@mantine/core";
+import { Paper, Group, Title, useMantineTheme } from "@mantine/core";
 
 const HeroHome = () => {
 	const theme = useMantineTheme();
