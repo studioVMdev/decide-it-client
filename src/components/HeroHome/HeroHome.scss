@@ -31,8 +31,8 @@
 		// flex-wrap: wrap;
 	}
 	&__subheading {
-    font-weight: 300;
-		max-width: 37rem;
+    font-weight: 500;
+		max-width: 36rem;
 
     font-size: 1rem;
     @include media-tablet{
@@ -48,7 +48,7 @@
     font-weight: 400;
     font-size: 1rem;
     @include media-tablet{
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
   }
 	&__logo {

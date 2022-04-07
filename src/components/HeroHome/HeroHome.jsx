@@ -44,19 +44,19 @@ const HeroHome = () => {
 					</Title>
 					<Title
 						className="hero-home__subheading"
-						style={{ color: theme.colors.cyan[5] }}
+						style={{ color: theme.colors.gray[6] }}
 						order={4}
 					>
 						<Logo /> helps construction professionals understand how long
 						a planning application will{" "}
-						<strong style={{ color: theme.colors.cyan[8] }}>
+						<strong style={{ color: theme.colors.gray[8] }}>
 							actually
 						</strong>{" "}
 						take to be determined.
 					</Title>
 					<Title
 						className="hero-home__cta"
-						style={{ color: theme.colors.orange[5] }}
+						style={{ color: theme.colors.orange[7] }}
 						order={6}
 					>
 						Try it below using a postcode or use the advanced search
