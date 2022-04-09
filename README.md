@@ -35,9 +35,11 @@ Without his Python scraper work, my project would not be possible.
 ## Tech Stack
 
 Front - End:
-**React (w/ hooks), ChartJS, DayJS, Mantine library**
+- **React (w/ hooks), ChartJS, DayJS, Mantine library**
+
 Back - End:
-**UK PlanIt API, Firebase Auth, FireStore NoSQL db**
+
+- **UK PlanIt API, Firebase Auth, FireStore NoSQL db**
 
 
 ---
