@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { NotificationsProvider } from "@mantine/notifications";
-import { MantineProvider } from "@mantine/core";
+// import { MantineProvider } from "@mantine/core";
 ReactDOM.render(
 	<React.StrictMode>
 		<Router>
