@@ -30,7 +30,7 @@ const Footer = () => {
 					</Group>
 					<Group position="right">
 						<Anchor
-							href="https://github.com/studioVMdev/decide-it-client"
+							href="https://github.com/valMn/decide-it-client"
 							target="_blank"
 						>
 							<Text color="gray" size="sm">
