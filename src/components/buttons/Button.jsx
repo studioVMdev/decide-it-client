@@ -18,7 +18,6 @@ const Button = ({
 	//header - header variant
 
 	// You can also pass an icon which will show inside the button before the text;
-
 	//you can pass down whatever function you want to trigger when button is clicked
 
 	return (
