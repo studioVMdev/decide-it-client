@@ -24,7 +24,16 @@ const Footer = () => {
 					</Group> */}
 					<Group position="left">
 						<Text size="sm" color={theme.primaryColor}>
-							Made with 💙 by Valentin Manaila
+							Made with 💙 by
+							<Anchor
+								href="https://www.linkedin.com/in/valentin-manaila/"
+								target="_blank"
+							>
+								<Text color="gray" size="sm">
+									{" "}
+									Valentin Manaila
+								</Text>
+							</Anchor>
 						</Text>
 						{/* <Anchor></Anchor> */}
 					</Group>
